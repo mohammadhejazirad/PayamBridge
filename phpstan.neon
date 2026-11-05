@@ -1,0 +1,6 @@
+parameters:
+    level: 6
+    paths:
+        - src
+        - packages/laravel/src
+    tmpDir: .phpstan-cache

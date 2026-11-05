@@ -1,0 +1,286 @@
+{
+  "schema_version": 1,
+  "snapshot_date": "2026-11-06",
+  "sources": [
+    {
+      "id": "S1",
+      "url": "https://docs.bale.ai/",
+      "kind": "official-documentation",
+      "purpose": "Bot API بله",
+      "retrieved_at": "2026-11-06",
+      "content_sha256": "53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "revision": null,
+      "retrieval_status": "retrieved"
+    },
+    {
+      "id": "S2",
+      "url": "https://docs.bale.ai/miniapp",
+      "kind": "official-documentation",
+      "purpose": "Mini App بله",
+      "retrieved_at": null,
+      "content_sha256": null,
+      "revision": null,
+      "retrieval_status": "pending"
+    },
+    {
+      "id": "S3",
+      "url": "https://docs.bale.ai/safir",
+      "kind": "official-documentation",
+      "purpose": "سفیر بله",
+      "retrieved_at": null,
+      "content_sha256": null,
+      "revision": null,
+      "retrieval_status": "pending"
+    },
+    {
+      "id": "S4",
+      "url": "https://eitaayar.ir/",
+      "kind": "official-documentation",
+      "purpose": "معرفی و نسبت ایتایار با ایتا",
+      "retrieved_at": null,
+      "content_sha256": null,
+      "revision": null,
+      "retrieval_status": "pending"
+    },
+    {
+      "id": "S5",
+      "url": "https://eitaayar.ir/assets/download/API_eitaayar.ir.pdf",
+      "kind": "official-documentation",
+      "purpose": "PDF عمومی API؛ دارای اختلاف نام متد",
+      "retrieved_at": null,
+      "content_sha256": null,
+      "revision": null,
+      "retrieval_status": "pending"
+    },
+    {
+      "id": "S6",
+      "url": "https://developer.eitaa.com/docs/Home/",
+      "kind": "official-documentation",
+      "purpose": "معرفی برنامه/برنامک",
+      "retrieved_at": null,
+      "content_sha256": null,
+      "revision": null,
+      "retrieval_status": "pending"
+    },
+    {
+      "id": "S7",
+      "url": "https://developer.eitaa.com/docs/Develop/JsSDK/",
+      "kind": "official-documentation",
+      "purpose": "JS SDK ایتا",
+      "retrieved_at": null,
+      "content_sha256": null,
+      "revision": null,
+      "retrieval_status": "pending"
+    },
+    {
+      "id": "S8",
+      "url": "https://developer.eitaa.com/docs/Develop/AuthorizationViaHash/",
+      "kind": "official-documentation",
+      "purpose": "اعتبارسنجی محلی initData",
+      "retrieved_at": null,
+      "content_sha256": null,
+      "revision": null,
+      "retrieval_status": "pending"
+    },
+    {
+      "id": "S9",
+      "url": "https://developer.eitaa.com/docs/Develop/SendMassage/",
+      "kind": "official-documentation",
+      "purpose": "ارسال برنامه به کاربر",
+      "retrieved_at": "2026-11-06",
+      "content_sha256": "911a524ccd3136d7e48673fab6df8124b6066130d6eecc5972be1c7fc7e3a2ed",
+      "revision": null,
+      "retrieval_status": "retrieved"
+    },
+    {
+      "id": "S10",
+      "url": "https://developer.eitaa.com/docs/Develop/ValidateHash/",
+      "kind": "official-documentation",
+      "purpose": "اصالت‌سنجی آنلاین یک‌بارمصرف",
+      "retrieved_at": null,
+      "content_sha256": null,
+      "revision": null,
+      "retrieval_status": "pending"
+    },
+    {
+      "id": "S11",
+      "url": "https://developer.eitaa.com/docs/Develop/SendData/",
+      "kind": "official-documentation",
+      "purpose": "داده launch؛ تکمیل inventory از این صفحه",
+      "retrieved_at": null,
+      "content_sha256": null,
+      "revision": null,
+      "retrieval_status": "pending"
+    },
+    {
+      "id": "S12",
+      "url": "https://developer.eitaa.com/docs/WebNotice/",
+      "kind": "official-documentation",
+      "purpose": "iframe و نمایش وب",
+      "retrieved_at": null,
+      "content_sha256": null,
+      "revision": null,
+      "retrieval_status": "pending"
+    },
+    {
+      "id": "S13",
+      "url": "https://rubika.ir/botapi",
+      "kind": "official-documentation",
+      "purpose": "معرفی Bot API روبیکا",
+      "retrieved_at": "2026-11-06",
+      "content_sha256": "dc98667f0d368b468b8d8761679948101c4b585b38c15889225d072b0ef25c4f",
+      "revision": null,
+      "retrieval_status": "retrieved"
+    },
+    {
+      "id": "S14",
+      "url": "https://rubika.ir/botapi/methods",
+      "kind": "official-documentation",
+      "purpose": "متدها و اختلاف نمونه‌ها",
+      "retrieved_at": "2026-11-06",
+      "content_sha256": "2e61ae356f9e000854dcf3c42778460b45cbb3d2ac261e0d944099eb3224b773",
+      "revision": null,
+      "retrieval_status": "retrieved"
+    },
+    {
+      "id": "S15",
+      "url": "https://rubika.ir/botapi/models",
+      "kind": "official-documentation",
+      "purpose": "مدل‌ها و enumها",
+      "retrieved_at": "2026-11-06",
+      "content_sha256": "92cac6ccae86421a5b9cbc9b62849db42f648e6778d8683c1f3d5910290c6da6",
+      "revision": null,
+      "retrieval_status": "retrieved"
+    },
+    {
+      "id": "S16",
+      "url": "https://rubika.ir/botapi/group-channel",
+      "kind": "official-documentation",
+      "purpose": "گروه و کانال",
+      "retrieved_at": null,
+      "content_sha256": null,
+      "revision": null,
+      "retrieval_status": "pending"
+    },
+    {
+      "id": "S17",
+      "url": "https://github.com/eitaa/Documentation",
+      "kind": "official-documentation",
+      "purpose": "منبع مستندات ایتا؛ مقایسه با وب",
+      "retrieved_at": null,
+      "content_sha256": null,
+      "revision": null,
+      "retrieval_status": "pending"
+    },
+    {
+      "id": "S18",
+      "url": "https://github.com/mtp1376/bale",
+      "kind": "third-party-reference",
+      "purpose": "user-client غیررسمی؛ README محدودیت proprietary را ذکر می‌کند",
+      "retrieved_at": null,
+      "content_sha256": null,
+      "revision": null,
+      "retrieval_status": "pending"
+    },
+    {
+      "id": "S19",
+      "url": "https://github.com/shayanheidari01/rubika",
+      "kind": "third-party-reference",
+      "purpose": "نمونه Rubpy؛ هنگام بررسی archived و دارای GPL-3.0",
+      "retrieved_at": null,
+      "content_sha256": null,
+      "revision": null,
+      "retrieval_status": "pending"
+    },
+    {
+      "id": "S20",
+      "url": "https://laravel.com/docs/13.x/releases",
+      "kind": "official-documentation",
+      "purpose": "نیازمندی و نسخه‌های Laravel",
+      "retrieved_at": null,
+      "content_sha256": null,
+      "revision": null,
+      "retrieval_status": "pending"
+    },
+    {
+      "id": "S21",
+      "url": "https://www.php.net/supported-versions.php",
+      "kind": "official-documentation",
+      "purpose": "چرخه پشتیبانی PHP",
+      "retrieved_at": null,
+      "content_sha256": null,
+      "revision": null,
+      "retrieval_status": "pending"
+    },
+    {
+      "id": "S22",
+      "url": "https://github.com/aminmadaniofficial/aiobale",
+      "kind": "third-party-reference",
+      "purpose": "user-client غیررسمی بله؛ نیازمند ممیزی کد و license",
+      "retrieved_at": null,
+      "content_sha256": null,
+      "revision": null,
+      "retrieval_status": "pending"
+    },
+    {
+      "id": "S23",
+      "url": "https://github.com/EhsanAhmadzadeh/eitaa-cli/blob/main/docs/protocol.md",
+      "kind": "third-party-reference",
+      "purpose": "شرح پروتکل غیررسمی ایتا؛ اعتبارسنجی مستقل لازم",
+      "retrieved_at": null,
+      "content_sha256": null,
+      "revision": null,
+      "retrieval_status": "pending"
+    },
+    {
+      "id": "S24",
+      "url": "https://packagist.org/packages/disintegrations/eitaa-serializer-laravel",
+      "kind": "third-party-reference",
+      "purpose": "نامزد بررسی PHP؛ نصب و source audit انجام نشده",
+      "retrieved_at": null,
+      "content_sha256": null,
+      "revision": null,
+      "retrieval_status": "pending"
+    },
+    {
+      "id": "R1",
+      "url": "https://pypi.org/project/rubika-bot/1.0.19/",
+      "kind": "third-party-reference-used-in-official-code-examples",
+      "retrieved_at": "2026-11-06",
+      "revision": "rubika-bot 1.0.19",
+      "content_sha256": "f961a727b758dabe7d3865136ca0814322d1a87b6631a655b712d4fbb64f28d0",
+      "retrieval_status": "inspected-not-installed",
+      "license": "MIT",
+      "limitations": [
+        "Supplemental evidence, not an official wire guarantee. Old hostname and disabled upload TLS in this client are NOT used by PayamBridge."
+      ]
+    },
+    {
+      "id": "P1",
+      "url": "https://botapi.rubika.ir/v3/{intentionally-invalid-token}/getMe",
+      "kind": "unauthenticated-read-only-negative-probe",
+      "retrieved_at": "2026-11-06",
+      "revision": null,
+      "content_sha256": "b6449ac4a959b461ecdca01bdd4c10f63614573e7de67d14f83168b448840f87",
+      "retrieval_status": "observed",
+      "observed_response": {
+        "status": "INVALID_INPUT"
+      },
+      "limitations": [
+        "No valid credential used; does not verify successful operations or permissions."
+      ]
+    },
+    {
+      "id": "S17-auth",
+      "url": "https://raw.githubusercontent.com/eitaa/Documentation/master/docs/Develop/AuthorizationViaHash.md",
+      "kind": "official-documentation-source",
+      "retrieved_at": "2026-11-06",
+      "revision": null,
+      "content_sha256": "e2f273a4699f48b9a9de4fae267dd9222aac8fa9d5582ae834053353c6255127",
+      "retrieval_status": "retrieved",
+      "limitations": [
+        "Verifier and independent signature fixtures not implemented yet."
+      ]
+    }
+  ]
+}

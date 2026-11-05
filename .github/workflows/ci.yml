@@ -1,0 +1,53 @@
+name: CI
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['8.3', '8.4', '8.5']
+        laravel: ['12', '13']
+        dependencies: [latest, lowest]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mbstring, pdo_sqlite
+          tools: composer:v2
+          coverage: none
+      - name: Select framework test harness
+        run: |
+          if [ "${{ matrix.laravel }}" = "12" ]; then
+            composer require --dev orchestra/testbench:^10.0 --no-update --no-interaction
+          else
+            composer require --dev orchestra/testbench:^11.0 --no-update --no-interaction
+          fi
+      - name: Resolve dependencies
+        run: |
+          if [ "${{ matrix.dependencies }}" = "lowest" ]; then
+            composer update --prefer-lowest --prefer-stable --no-interaction --prefer-dist --no-progress
+          else
+            composer update --no-interaction --prefer-dist --no-progress
+          fi
+      - run: composer check
+      - run: composer validate --strict packages/laravel/composer.json
+      - run: composer audit
+  consumers:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        target: ['php', '12', '13']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          extensions: mbstring, pdo_sqlite
+          tools: composer:v2
+          coverage: none
+      - run: php tools/consumer-smoke.php ${{ matrix.target }}

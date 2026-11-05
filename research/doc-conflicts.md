@@ -1,0 +1,17 @@
+# Documentation conflicts
+
+Reviewed 2026-11-06. S identifiers resolve to `sources.json`, including source hashes. These are development decisions, not claims that live behavior has been verified.
+
+- **DOC-01 — Rubika cursor.** S13 introduction says `start_id`; S14 section `_7` explicitly lists `offset_id` and `next_offset_id`. Initial client uses the method table and preserves strings exactly. Pending: valid-token multi-page polling across a restart. No fallback request is sent automatically.
+- **DOC-02 — Rubika keypad edit.** S14 `inline-keypad` names `editMessageKeypad`, while examples use different names. Inventory retains the heading candidate, unimplemented. Pending: resolve via authorized live observation before adding a wrapper.
+- **DOC-03 — EitaaYar file method.** Original specification reports `sendDocument` versus `sendFile` in S5. PDF has not yet been retrieved in this implementation session. Both remain unresolved; EitaaApp is a different driver.
+- **DOC-04 — Eitaa signing fixture.** Original specification reports differing `user` text in S8 and S17. S17 AuthorizationViaHash source retrieved and hashed as S17-auth. Local verifier is not yet implemented; no signed JSON is normalized or rewritten.
+- **DOC-05 — Eitaa online verification.** S10 requires one-time, time-limited verification. Not implemented; must have single-flight control and ambiguous-consumption behavior, with automatic retry disabled.
+- **DOC-06 — iframe headers.** No global header changes implemented. A future Mini App route must use a narrow, documented CSP policy.
+- **DOC-07 — Rubika Mini App.** No complete official handshake contract retrieved. Support remains unknown.
+- **DOC-08 — User-client provenance.** All personal-account clients remain research-pending. No third-party protocol source copied or installed. Feasibility and license review are prerequisites, followed by owner-authorized login/restart/revoke tests.
+- **DOC-09 — Rubika response envelope.** S14 describes operation output fields without a complete wire envelope. R1, `rubika_bot/requests.py` in MIT-licensed `rubika-bot` 1.0.19 (wheel hash in sources), checks `status == OK` and reads `data`. A read-only getMe request with an intentionally invalid token returned exactly `{"status":"INVALID_INPUT"}` (P1). The initial parser follows this supplemental envelope evidence. Unknown statuses remain provider errors; their retry or authorization meanings are not guessed. Successful wire responses still require valid-token verification. The reference client's obsolete origin and `verify=False` upload behavior were rejected.
+- **DOC-10 — Rubika getMe shape.** S14 `_1` specifies a `bot` output field; R1 consumes a direct bot object from `data`. The client accepts both explicitly evidenced shapes and rejects other/missing identities. Both have separate synthetic contract cases. Pending: capture the current successful response with an authorized token.
+- **DOC-11 — Rubika event identity.** S15 Update lists type, chat, message and event fields, but no unique event ID. Message ID alone cannot distinguish edits or other events. Low-level getUpdates is implemented; the durable Poller rejects Rubika before HTTP until identity and replay semantics are verified. No hash-of-text deduplication is used.
+
+Resolved discrepancies belong to a provider-specific ADR with the exact source revision, sanitized observation, acceptance run ID and test fixture. None of these open live discrepancies is marked resolved by a mock test.

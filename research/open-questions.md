@@ -1,0 +1,16 @@
+# Remaining product work
+
+This repository is the first implementation slice, not the completed product specified in `.docs`.
+
+1. Close full inventories for EitaaYar, Bale Safir, backend/frontend Mini Apps and personal accounts. The current 70-operation inventory covers the retrieved Bale Bot page, Rubika method headings and Eitaa app messaging only. It is not the product-wide denominator. Pending operation tables are extracted evidence and may contain input/output rows together; normalize them before implementation or generation.
+2. Normalize nested models, all events and optional fields. Keypad/markup currently use provider-native arrays; schema validation and typed builders remain to be implemented. No public raw-call/magic method is presented as API coverage.
+3. Verify the seven initial operations with authorized test credentials and allowlisted destinations. Supply credentials through environment/secret storage, never repository files or chat. Resolve DOC-01/09/10/11 and provider-specific rate limits. The only remote probe so far was an invalid-token, read-only getMe request.
+4. Implement explicit webhook management and durable ingress with body/content-type limits, independent path secret, provider-supported authentication and failure responses on persistence errors. No webhook route is currently installed.
+5. Extend the single-batch SQLite collector into an inbox dispatcher, acknowledgments, poison-event handling, retention, outbox and bounded workers with cancellation and operational CLI. SQLite is for one shared local database, not a distributed multi-host lease service. The current inbox has no business side effects or exactly-once processing claim.
+6. Implement optional personal-account drivers after independent schema, maintenance and license audits of S18/19/22/23/24. Login, OTP/2FA, encrypted session storage, restart, reconnect and revoke are required acceptance steps. Bot credentials are not substitutes.
+7. Implement Bale/Eitaa Mini App verification against independent signature fixtures, strict query parsing, replay control, online Eitaa verification, browser assets and actual WebView tests. Rubika Mini App remains unknown.
+8. Add media streaming/limits and tested download URL policies before accepting remote media. No upload/download API or arbitrary-URL fetcher exists in this slice.
+9. Add provider-aware safe-read retry with bounded backoff/deadline after documenting semantics. All requests currently run once. Consumers must reconcile `delivery_unknown`; Laravel's default job retry can duplicate sends unless consumer jobs explicitly handle this outcome.
+10. Implement AI responder and product publisher on top of durable inbox/outbox with tenant policy, allowlists and stop controls. Neither capability is implemented yet.
+11. Run the PHP 8.3/8.4/8.5 and Laravel 12/13 CI matrix, lowest dependencies, Windows/macOS, targeted mutation tests and 24-hour fault/soak scenario. Local runtime verification is recorded separately in `docs/IMPLEMENTATION_STATUS.md`.
+12. Before public release, independently review security, all coverage claims and dependency provenance; verify package-name availability, decide publication ownership, close release inventory and record live acceptance evidence. No public package or repository has been published.

@@ -1,0 +1,75 @@
+{
+  "run_id": "local-20261106-initial",
+  "build_sha256": "b3e5e600294ce4f6cab19f0cb7aed93e2d806e3d1e83502791217afb20d5f596",
+  "environment": {
+    "php": "8.5.12",
+    "os": "Linux",
+    "laravel": "v13.40.0",
+    "testbench": "v11.3.0",
+    "phpunit": "12.5.43"
+  },
+  "consecutive_full_suite_runs": [
+    {
+      "run": 1,
+      "exit_code": 0,
+      "tests": 97,
+      "assertions": 230,
+      "restart_and_fault_cases": "tests/Integration/SqliteInboxTest.php"
+    },
+    {
+      "run": 2,
+      "exit_code": 0,
+      "tests": 97,
+      "assertions": 230,
+      "restart_and_fault_cases": "tests/Integration/SqliteInboxTest.php"
+    },
+    {
+      "run": 3,
+      "exit_code": 0,
+      "tests": 97,
+      "assertions": 230,
+      "restart_and_fault_cases": "tests/Integration/SqliteInboxTest.php"
+    }
+  ],
+  "isolated_laravel_12_full_suite": {
+    "laravel": "v12.71.0",
+    "testbench": "v10.12.0",
+    "php": "8.5.12",
+    "tests": 97,
+    "assertions": 230,
+    "status": "passed"
+  },
+  "clean_consumers": {
+    "standalone_php": "passed; no Illuminate or dev dependencies",
+    "laravel_12": "passed; discovery, config cache, route cache, credential references, local capability command, core fake contract",
+    "laravel_13": "passed; discovery, config cache, route cache, credential references, local capability command, core fake contract"
+  },
+  "checks": {
+    "composer_validate": "passed for both manifests",
+    "pint": "passed",
+    "phpstan_level_6": "passed",
+    "composer_audit": "no security vulnerability advisories found",
+    "syntax": "55 PHP files passed",
+    "inventory": "70 operations; implemented 7; contract passed 7; live passed 0"
+  },
+  "coverage": {
+    "scope": "All included SDK and Laravel source, including testing helper; no generated source",
+    "statements": 433,
+    "covered_statements": 379,
+    "line_percent": 87.53,
+    "branch": "not measured",
+    "release_target": "not yet met"
+  },
+  "live_verified_operations": 0,
+  "pending": [
+    "PHP 8.3 and 8.4 executions",
+    "CI matrix and prefer-lowest runs",
+    "Windows/macOS",
+    "valid-token provider acceptance",
+    "WebView",
+    "mutation tests",
+    "24-hour soak",
+    "product-wide inventory completion"
+  ],
+  "note": "This records local development checks; it is not a production-readiness or live-provider guarantee."
+}

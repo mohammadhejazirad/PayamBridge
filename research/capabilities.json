@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "surfaces": [
+    {
+      "provider": "bale",
+      "surface": "bot",
+      "implementation": "initial-slice",
+      "implemented_operations": [
+        "getMe",
+        "sendMessage",
+        "getUpdates"
+      ],
+      "durable_polling": true,
+      "live_verified": false
+    },
+    {
+      "provider": "rubika",
+      "surface": "bot",
+      "implementation": "initial-slice",
+      "implemented_operations": [
+        "getMe",
+        "sendMessage",
+        "getUpdates"
+      ],
+      "durable_polling": false,
+      "live_verified": false
+    },
+    {
+      "provider": "eitaa",
+      "surface": "app",
+      "implementation": "initial-slice",
+      "implemented_operations": [
+        "sendMessage"
+      ],
+      "durable_polling": false,
+      "live_verified": false
+    },
+    {
+      "provider": "eitaa",
+      "surface": "yar",
+      "implementation": "research-pending",
+      "implemented_operations": [],
+      "live_verified": false
+    },
+    {
+      "provider": "bale",
+      "surface": "safir",
+      "implementation": "research-pending",
+      "implemented_operations": [],
+      "live_verified": false
+    },
+    {
+      "provider": "bale",
+      "surface": "miniapp",
+      "implementation": "research-pending",
+      "implemented_operations": [],
+      "live_verified": false
+    },
+    {
+      "provider": "eitaa",
+      "surface": "miniapp",
+      "implementation": "research-pending",
+      "implemented_operations": [],
+      "live_verified": false
+    },
+    {
+      "provider": "bale",
+      "surface": "user",
+      "implementation": "research-pending",
+      "implemented_operations": [],
+      "live_verified": false
+    },
+    {
+      "provider": "eitaa",
+      "surface": "user",
+      "implementation": "research-pending",
+      "implemented_operations": [],
+      "live_verified": false
+    },
+    {
+      "provider": "rubika",
+      "surface": "user",
+      "implementation": "research-pending",
+      "implemented_operations": [],
+      "live_verified": false
+    }
+  ],
+  "unknown": [
+    {
+      "provider": "rubika",
+      "surface": "miniapp",
+      "reason": "No complete official contract verified (DOC-07)."
+    }
+  ]
+}

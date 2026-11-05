@@ -1,0 +1,12 @@
+/vendor/
+/.phpunit.cache/
+/.phpstan-cache/
+/coverage/
+/.env
+/.env.*
+!/.env.example
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+/packages/laravel/vendor/
+/packages/laravel/composer.lock

@@ -1,0 +1,11 @@
+<?php
+
+declare(strict_types=1);
+
+namespace PayamBridge\Http;
+
+final readonly class JsonResponse
+{
+    /** @param array<string, mixed> $body */
+    public function __construct(public array $body, public int $status) {}
+}

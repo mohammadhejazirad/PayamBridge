@@ -1,0 +1,5132 @@
+{
+  "schema_version": 1,
+  "snapshot_date": "2026-11-06",
+  "scope": "All distinct operations named in retrieved Bale Bot and Rubika methods pages, plus Eitaa app sendMessage. Other surfaces remain incomplete.",
+  "complete_product_inventory": false,
+  "generation": "Source heading/table extraction; first seven operation schemas normalized manually. No API code generated.",
+  "operations": [
+    {
+      "id": "bale.bot.getUpdates",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "getUpdates",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "getUpdates",
+      "wire_method": "getUpdates",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "offset",
+          "type": "integer",
+          "required": false,
+          "nullable": false,
+          "omission_semantics": "omitted when SDK argument is null; false and zero preserved",
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": 43
+        },
+        {
+          "wire_name": "limit",
+          "type": "integer",
+          "required": false,
+          "nullable": false,
+          "omission_semantics": "omitted when SDK argument is null; false and zero preserved",
+          "default": 100,
+          "constraints": [
+            "1..100"
+          ],
+          "nested_schema": null,
+          "example": 100
+        },
+        {
+          "wire_name": "timeout",
+          "type": "integer",
+          "required": false,
+          "nullable": false,
+          "omission_semantics": "omitted when SDK argument is null; false and zero preserved",
+          "default": null,
+          "constraints": [
+            "nonnegative seconds; configure larger transport timeout"
+          ],
+          "nested_schema": null,
+          "example": 0
+        }
+      ],
+      "schema_status": "normalized-initial-slice",
+      "response_model": "UpdateBatch",
+      "error_cases": [
+        "provider-error",
+        "http-error",
+        "network-timeout",
+        "invalid-json",
+        "missing-required-response-field",
+        "invalid-request-payload"
+      ],
+      "side_effect": "acknowledges-prior-updates-when-offset-advances",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "implemented",
+      "contract_test": "passed",
+      "live_test": "not-run",
+      "limitations": [
+        "Nested provider-specific models remain native arrays; full model normalization is pending."
+      ],
+      "contract_evidence": "tests/Contract/OfficialDriversTest.php; synthetic source-based fixtures, not live captures"
+    },
+    {
+      "id": "bale.bot.setWebhook",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "setWebhook",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "setWebhook",
+      "wire_method": "setWebhook",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "url",
+          "source_type": "String",
+          "source_columns": [
+            "الزامی",
+            "آدرس HTTPS URL ای که Update ها باید به آن ارسال شوند. برای حذف یکپارچه‌سازی (غیرفعال کردن) وب‌هوک, یک رشته خالی را ارسال کنید."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "bale.bot.deleteWebhook",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "deleteWebhook",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "deleteWebhook",
+      "wire_method": "deleteWebhook",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "bale.bot.getWebhookInfo",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "getWebhookInfo",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "getWebhookInfo",
+      "wire_method": "getWebhookInfo",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "bale.bot.getMe",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "getMe",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "getMe",
+      "wire_method": "getMe",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [],
+      "schema_status": "normalized-initial-slice",
+      "response_model": "BotIdentity",
+      "error_cases": [
+        "provider-error",
+        "http-error",
+        "network-timeout",
+        "invalid-json",
+        "missing-required-response-field",
+        "invalid-request-payload"
+      ],
+      "side_effect": "read",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "implemented",
+      "contract_test": "passed",
+      "live_test": "not-run",
+      "limitations": [
+        "Nested provider-specific models remain native arrays; full model normalization is pending."
+      ],
+      "contract_evidence": "tests/Contract/OfficialDriversTest.php; synthetic source-based fixtures, not live captures"
+    },
+    {
+      "id": "bale.bot.sendMessage",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "sendMessage",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "sendMessage",
+      "wire_method": "sendMessage",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "type": "string|integer",
+          "required": true,
+          "nullable": false,
+          "omission_semantics": "required",
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": "123"
+        },
+        {
+          "wire_name": "text",
+          "type": "string",
+          "required": true,
+          "nullable": false,
+          "omission_semantics": "required",
+          "default": null,
+          "constraints": [
+            "nonempty UTF-8",
+            "documented max 4096 characters; SDK counts Unicode code points"
+          ],
+          "nested_schema": null,
+          "example": "سلام دنیا 👩‍💻"
+        },
+        {
+          "wire_name": "reply_to_message_id",
+          "type": "integer",
+          "required": false,
+          "nullable": false,
+          "omission_semantics": "omitted when SDK argument is null; false and zero preserved",
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": 7
+        },
+        {
+          "wire_name": "reply_markup",
+          "type": "object",
+          "required": false,
+          "nullable": false,
+          "omission_semantics": "omitted when SDK argument is null; false and zero preserved",
+          "default": null,
+          "constraints": [],
+          "nested_schema": {
+            "source_model": "InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove",
+            "normalization": "pending"
+          },
+          "example": {
+            "inline_keyboard": []
+          }
+        }
+      ],
+      "schema_status": "normalized-initial-slice",
+      "response_model": "MessageReceipt",
+      "error_cases": [
+        "provider-error",
+        "http-error",
+        "network-timeout",
+        "invalid-json",
+        "missing-required-response-field",
+        "invalid-request-payload"
+      ],
+      "side_effect": "write",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "implemented",
+      "contract_test": "passed",
+      "live_test": "not-run",
+      "limitations": [
+        "Nested provider-specific models remain native arrays; full model normalization is pending."
+      ],
+      "contract_evidence": "tests/Contract/OfficialDriversTest.php; synthetic source-based fixtures, not live captures"
+    },
+    {
+      "id": "bale.bot.forwardMessage",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "forwardMessage",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "forwardMessage",
+      "wire_method": "forwardMessage",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "source_type": "String یا Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه منحصربه‌فرد گفتگوی هدف یا شناسه کانال هدف (با فرمت @channelusername)"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "from_chat_id",
+          "source_type": "Integer یا String",
+          "source_columns": [
+            "الزامی",
+            "شناسه منحصربه‌فرد گفتگویی که پیام اصلی در آن‌جا ارسال شده است (یا نام کاربری کانال با فرمت @channelusername)"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "message_id",
+          "source_type": "Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه پیام در گفتگوی مشخص‌شده در from_chat_id"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "bale.bot.copyMessage",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "copyMessage",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "copyMessage",
+      "wire_method": "copyMessage",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "source_type": "String یا Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه منحصربه‌فرد گفتگوی هدف یا شناسه کانال هدف (با فرمت @channelusername)"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "from_chat_id",
+          "source_type": "Integer یا String",
+          "source_columns": [
+            "الزامی",
+            "شناسه منحصربه‌فرد گفتگویی که پیام اصلی در آن‌جا ارسال شده است (یا نام کاربری کانال با فرمت @channelusername)"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "message_id",
+          "source_type": "Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه پیام در گفتگوی مشخص‌شده در from_chat_id"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "bale.bot.sendPhoto",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "sendPhoto",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "sendPhoto",
+      "wire_method": "sendPhoto",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "source_type": "String یا Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه منحصربه‌فرد گفتگو هدف یا نام‌ کاربری کانال هدف (با فرمت @channelusername)"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "from_chat_id",
+          "source_type": "Integer یا String",
+          "source_columns": [
+            "الزامی",
+            "شناسه منحصربه‌فرد گفتگوی که پیام اصلی در آن‌جا ارسال شده است (یا نام کاربری کانال با فرمت @channelusername)"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "photo",
+          "source_type": "InputFile یا String",
+          "source_columns": [
+            "الزامی",
+            "تصویری که باید ارسال شود. یک file_id را به صورت رشته وارد کنید تا یک تصویر که در سرورهای بله وجود دارد، ارسال شود (پیشنهادی) یا یک HTTP URL به صورت رشته وارد کنید تا بله یک تصویر را از اینترنت دریافت و ارسال کند و یا یک تصویر جدید را با استفاده از multipart/form-data آپلود کنید."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "caption",
+          "source_type": "String",
+          "source_columns": [
+            "اختیاری",
+            "زیرنویس تصویر (در زمان ارسال مجدد تصاویر با استفاده از file_id نیز قابل استفاده است)، بین ۰ تا ۴۰۹۶ کاراکتر"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "reply_to_message_id",
+          "source_type": "Integer",
+          "source_columns": [
+            "اختیاری",
+            "ID پیام اصلی، در صورتی که پیام یک پاسخ باشد."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "reply_markup",
+          "source_type": "InlineKeyboardButton یا ReplyKeyboardMarkup یا ReplyKeyboardRemove",
+          "source_columns": [
+            "اختیاری",
+            "امکانات اضافه رابط کاربری بازو. یک شی JSON-serialized است که میتواند برای یک صفحه‌کلید inline یا ReplyMarkup و یا دستورالعمل‌هایی برای حذف صفحه‌کلید پاسخ باشد."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "bale.bot.sendAudio",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "sendAudio",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "sendAudio",
+      "wire_method": "sendAudio",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "source_type": "String یا Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه منحصربه‌فرد گفتگو هدف یا نام‌ کاربری کانال هدف (با فرمت @channelusername)"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "audio",
+          "source_type": "InputFile یا String",
+          "source_columns": [
+            "الزامی",
+            "فایل صوتی که باید ارسال شود. یک file_id را به صورت رشته وارد کنید تا یک فایل صوتی که در سرورهای بله وجود دارد، ارسال شود (پیشنهادی) یا یک HTTP URL به صورت رشته وارد کنید تا بله یک فایل صوتی را از اینترنت دریافت و ارسال کند و یا یک فایل صوتی جدید را با استفاده از multipart/form-data آپلود کنید."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "caption",
+          "source_type": "String",
+          "source_columns": [
+            "اختیاری",
+            "زیرنویس فایل صوتی، بین ۰ تا ۴۰۹۶ کاراکتر"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "reply_to_message_id",
+          "source_type": "Integer",
+          "source_columns": [
+            "اختیاری",
+            "ID پیام اصلی، در صورتی که پیام یک پاسخ باشد."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "reply_markup",
+          "source_type": "InlineKeyboardButton یا ReplyKeyboardMarkup یا ReplyKeyboardRemove",
+          "source_columns": [
+            "اختیاری",
+            "امکانات اضافه رابط کاربری بازو. یک شی JSON-serialized است که میتواند برای یک صفحه‌کلید inline یا ReplyMarkup و یا دستورالعمل‌هایی برای حذف صفحه‌کلید پاسخ باشد."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "bale.bot.sendDocument",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "sendDocument",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "sendDocument",
+      "wire_method": "sendDocument",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "source_type": "String یا Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه منحصربه‌فرد گفتگو هدف یا نام‌ کاربری کانال هدف (با فرمت @channelusername)"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "document",
+          "source_type": "InputFile یا String",
+          "source_columns": [
+            "الزامی",
+            "فایلی که باید ارسال شود. یک file_id را به صورت رشته وارد کنید تا فایلی که در سرورهای بله وجود دارد، ارسال شود (پیشنهادی) یا یک HTTP URL به صورت رشته وارد کنید تا بله فایل را از اینترنت دریافت و ارسال کند و یا فایل جدیدی را با استفاده از multipart/form-data آپلود کنید."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "caption",
+          "source_type": "String",
+          "source_columns": [
+            "اختیاری",
+            "زیرنویس سند (در زمان ارسال مجدد اسناد از طریق file_id نیز قابل استفاده است)، بین ۰ تا ۴۰۹۶ کاراکتر"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "reply_to_message_id",
+          "source_type": "Integer",
+          "source_columns": [
+            "اختیاری",
+            "ID پیام اصلی، در صورتی که پیام یک پاسخ باشد."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "reply_markup",
+          "source_type": "InlineKeyboardButton یا ReplyKeyboardMarkup یا ReplyKeyboardRemove",
+          "source_columns": [
+            "اختیاری",
+            "امکانات اضافه رابط کاربری بازو. یک شی JSON-serialized است که میتواند برای یک صفحه‌کلید inline یا ReplyMarkup و یا دستورالعمل‌هایی برای حذف صفحه‌کلید پاسخ باشد."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "bale.bot.sendVideo",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "sendVideo",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "sendVideo",
+      "wire_method": "sendVideo",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "source_type": "String یا Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه منحصربه‌فرد گفتگو هدف یا نام‌ کاربری کانال هدف (با فرمت @channelusername)"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "video",
+          "source_type": "InputFile یا String",
+          "source_columns": [
+            "الزامی",
+            "ویدیویی که باید ارسال شود. یک file_id را به صورت رشته وارد کنید تا ویدیویی که در سرورهای بله وجود دارد، ارسال شود (پیشنهادی) یا یک HTTP URL به صورت رشته وارد کنید تا ویدیویی را از اینترنت دریافت کنید و یا ویدیویی جدید را با استفاده از multipart/form-data آپلود کنید."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "caption",
+          "source_type": "String",
+          "source_columns": [
+            "اختیاری",
+            "زیرنویس ویدیو (می‌توان در زمان ارسال مجدد ویدیوها از طریق file_id استفاده کرد)، بین ۰ تا ۴۰۹۶ کاراکتر بعد از تجزیه موجودیت‌ها"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "reply_to_message_id",
+          "source_type": "Integer",
+          "source_columns": [
+            "اختیاری",
+            "ID پیام اصلی، در صورتی که پیام یک پاسخ باشد."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "reply_markup",
+          "source_type": "InlineKeyboardButton یا ReplyKeyboardMarkup یا ReplyKeyboardRemove",
+          "source_columns": [
+            "اختیاری",
+            "امکانات اضافه رابط کاربری بازو. یک شی JSON-serialized است که میتواند برای یک صفحه‌کلید inline یا ReplyMarkup و یا دستورالعمل‌هایی برای حذف صفحه‌کلید پاسخ باشد."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "bale.bot.sendAnimation",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "sendAnimation",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "sendAnimation",
+      "wire_method": "sendAnimation",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "source_type": "String یا Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه منحصربه‌فرد گفتگو هدف یا نام‌ کاربری کانال هدف (با فرمت @channelusername)"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "animation",
+          "source_type": "InputFile یا String",
+          "source_columns": [
+            "الزامی",
+            "انیمیشنی که باید ارسال شود. یک file_id را به صورت رشته وارد کنید تا انیمیشنی که در سرورهای بله وجود دارد، ارسال شود (پیشنهادی) یا یک HTTP URL به صورت رشته وارد کنید تا بله آن انیمیشن را از اینترنت دریافت و ارسال کند و یا انیمیشن جدیدی را با استفاده از multipart/form-data آپلود کنید."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "reply_to_message_id",
+          "source_type": "Integer",
+          "source_columns": [
+            "اختیاری",
+            "ID پیام اصلی، در صورتی که پیام یک پاسخ باشد."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "reply_markup",
+          "source_type": "InlineKeyboardButton یا ReplyKeyboardMarkup یا ReplyKeyboardRemove",
+          "source_columns": [
+            "اختیاری",
+            "امکانات اضافه رابط کاربری بازو. یک شی JSON-serialized است که میتواند برای یک صفحه‌کلید inline یا ReplyMarkup و یا دستورالعمل‌هایی برای حذف صفحه‌کلید پاسخ باشد."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "bale.bot.sendVoice",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "sendVoice",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "sendVoice",
+      "wire_method": "sendVoice",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "source_type": "String یا Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه منحصربه‌فرد گفتگو هدف یا نام‌ کاربری کانال هدف (با فرمت @channelusername)"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "voice",
+          "source_type": "InputFile یا String",
+          "source_columns": [
+            "الزامی",
+            "فایل صوتی که باید ارسال شود. یک file_id را به صورت رشته وارد کنید تا یک فایل صوتی که در سرورهای بله وجود دارد، ارسال شود (پیشنهادی) یا یک HTTP URL به صورت رشته وارد کنید تا بله یک فایل صوتی را از اینترنت دریافت و ارسال کند و یا یک فایل صوتی جدید را با استفاده از multipart/form-data آپلود کنید."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "caption",
+          "source_type": "String",
+          "source_columns": [
+            "اختیاری",
+            "زیرنویس پیام صوتی، بین ۰ تا ۴۰۹۶ کاراکتر بعد از تجزیه موجودیت‌ها"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "reply_to_message_id",
+          "source_type": "Integer",
+          "source_columns": [
+            "اختیاری",
+            "ID پیام اصلی، در صورتی که پیام یک پاسخ باشد."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "reply_markup",
+          "source_type": "InlineKeyboardButton یا ReplyKeyboardMarkup یا ReplyKeyboardRemove",
+          "source_columns": [
+            "اختیاری",
+            "امکانات اضافه رابط کاربری بازو. یک شی JSON-serialized است که میتواند برای یک صفحه‌کلید inline یا ReplyMarkup و یا دستورالعمل‌هایی برای حذف صفحه‌کلید پاسخ باشد."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "bale.bot.sendMediaGroup",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "sendMediaGroup",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "sendMediaGroup",
+      "wire_method": "sendMediaGroup",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "source_type": "String یا Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه منحصربه‌فرد گفتگو هدف یا نام‌ کاربری کانال هدف (با فرمت @channelusername)"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "media",
+          "source_type": "آرایه‌ای از InputMediaAudio، InputMediaDocument، InputMediaPhoto و InputMediaVideo",
+          "source_columns": [
+            "الزامی",
+            "یک آرایه JSON-serialized شامل پیام‌هایی که باید ارسال شوند،"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "reply_to_message_id",
+          "source_type": "Integer",
+          "source_columns": [
+            "اختیاری",
+            "ID پیام اصلی، در صورتی که پیام یک پاسخ باشد."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "bale.bot.sendLocation",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "sendLocation",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "sendLocation",
+      "wire_method": "sendLocation",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "source_type": "String یا Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه منحصربه‌فرد گفتگو هدف یا نام‌ کاربری کانال هدف (با فرمت @channelusername)"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "latitude",
+          "source_type": "Float",
+          "source_columns": [
+            "الزامی",
+            "عرض جغرافیایی موقعیت مکانی"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "longitude",
+          "source_type": "Float",
+          "source_columns": [
+            "الزام",
+            "طول جغرافیایی موقعیت مکانی"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "horizontal_accuracy",
+          "source_type": "Float",
+          "source_columns": [
+            "اختیاری",
+            "شعاع عدم قطعیت برای یک نقطه مکانی، با واحد متر اندازه‌گیری می‌شود و عددی بین ۰ تا ۱۵۰۰ است."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "reply_to_message_id",
+          "source_type": "Integer",
+          "source_columns": [
+            "اختیاری",
+            "ID پیام اصلی، در صورتی که پیام یک پاسخ باشد."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "reply_markup",
+          "source_type": "InlineKeyboardButton یا ReplyKeyboardMarkup یا ReplyKeyboardRemove",
+          "source_columns": [
+            "اختیاری",
+            "امکانات اضافه رابط کاربری بازو. یک شی JSON-serialized است که میتواند برای یک صفحه‌کلید inline یا ReplyMarkup و یا دستورالعمل‌هایی برای حذف صفحه‌کلید پاسخ باشد."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "bale.bot.sendContact",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "sendContact",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "sendContact",
+      "wire_method": "sendContact",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "source_type": "String یا Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه منحصربه‌فرد گفتگو هدف یا نام‌ کاربری کانال هدف (با فرمت @channelusername)"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "phone_number",
+          "source_type": "String یا Integer",
+          "source_columns": [
+            "الزامی",
+            "شماره تماس مخاطب"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "first_name",
+          "source_type": "String",
+          "source_columns": [
+            "الزامی",
+            "نام کوچک مخاطب"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "last_name",
+          "source_type": "String",
+          "source_columns": [
+            "اختیاری",
+            "اختیاری. نام خانوادگی مخاطب"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "reply_to_message_id",
+          "source_type": "Integer",
+          "source_columns": [
+            "اختیاری",
+            "ID پیام اصلی، در صورتی که پیام یک پاسخ باشد."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "reply_markup",
+          "source_type": "InlineKeyboardButton یا ReplyKeyboardMarkup یا ReplyKeyboardRemove",
+          "source_columns": [
+            "اختیاری",
+            "امکانات اضافه رابط کاربری بازو. یک شی JSON-serialized است که میتواند برای یک صفحه‌کلید inline یا ReplyMarkup و یا دستورالعمل‌هایی برای حذف صفحه‌کلید پاسخ باشد."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "bale.bot.sendChatAction",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "sendChatAction",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "sendChatAction",
+      "wire_method": "sendChatAction",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "source_type": "String یا Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه منحصربه‌فرد گفتگو هدف یا نام‌ کاربری کانال هدف (با فرمت @channelusername)"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "action",
+          "source_type": "String",
+          "source_columns": [
+            "الزامی",
+            "نوع عملی که نمایش داده می‌شود. یکی از این موارد: typing , upload_photo , record_video , upload_video , record_voice , upload_voice , choose_sticker"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "bale.bot.getFile",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "getFile",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "getFile",
+      "wire_method": "getFile",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "file_id",
+          "source_type": "String",
+          "source_columns": [
+            "الزامی",
+            "شناسه فایلی که باید اطلاعات آن دریافت شود."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "bale.bot.answerCallbackQuery",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "answerCallbackQuery",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "answerCallbackQuery",
+      "wire_method": "answerCallbackQuery",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "callback_query_id",
+          "source_type": "String",
+          "source_columns": [
+            "الزامی",
+            "شناسهٔ یکتای callback query که باید به آن پاسخ داده شود."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "text",
+          "source_type": "String",
+          "source_columns": [
+            "اختیاری",
+            "متن اعلانی که به کاربر نمایش داده می‌شود. در صورت خالی بودن، چیزی به کاربر نمایش داده نمی‌شود و صرفاً دکمه اینلاین از حالت انتظار خارج می‌شود. بین ۰ تا ۲۰۰ کاراکتر"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "show_alert",
+          "source_type": "Boolean",
+          "source_columns": [
+            "اختیاری",
+            "اگر True باشد، پیام به‌صورت هشدار (Alert) نمایش داده می‌شود. در غیر این صورت، به‌صورت یک اعلان در بالای صفحه نمایش داده می‌شود."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "bale.bot.askReview",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "askReview",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "askReview",
+      "wire_method": "askReview",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "user_id",
+          "source_type": "Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسهٔ یکتای کاربری که فرم رضایت‌سنجی برای او نمایش داده می‌شود."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "delay_seconds",
+          "source_type": "Integer",
+          "source_columns": [
+            "الزامی",
+            "تأخیر به ثانیه از زمان فراخوانی متد تا نمایش فرم رضایت‌سنجی"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "bale.bot.banChatMember",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "banChatMember",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "banChatMember",
+      "wire_method": "banChatMember",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "source_type": "String یا Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه منحصربه‌فرد گروه هدف یا نام کاربری کانال هدف (با فرمت @channelusername)"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "user_id",
+          "source_type": "Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه منحصربه‌فرد کاربر هدف"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "bale.bot.unbanChatMember",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "unbanChatMember",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "unbanChatMember",
+      "wire_method": "unbanChatMember",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "source_type": "String یا Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه منحصربه‌فرد گروه هدف یا نام کاربری گروه یا کانال هدف (با فرمت @channelusername)"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "user_id",
+          "source_type": "Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه منحصربه‌فرد کاربر هدف"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "only_if_banned",
+          "source_type": "Boolean",
+          "source_columns": [
+            "اختیاری",
+            "اگر کاربر مسدود نشده است، کاری انجام دهد."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "bale.bot.promoteChatMember",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "promoteChatMember",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "promoteChatMember",
+      "wire_method": "promoteChatMember",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "source_type": "String یا Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه منحصربه‌فرد گفتگو هدف یا نام کاربری کانال هدف (با فرمت @channelusername)"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "user_id",
+          "source_type": "Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه منحصربه‌فرد کاربر هدف"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "can_change_info",
+          "source_type": "Boolean",
+          "source_columns": [
+            "اختیاری",
+            "اگر میخواهید ادمین توانایی تغییر اطلاعات چت را داشته باشد True را ارسال کنید"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "can_post_messages",
+          "source_type": "Boolean",
+          "source_columns": [
+            "اختیاری",
+            "توانایی ارسال پست توسط کاربر"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "can_edit_messages",
+          "source_type": "Boolean",
+          "source_columns": [
+            "اختیاری",
+            "توانایی ویرایش پیام های چت"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "can_delete_messages",
+          "source_type": "Boolean",
+          "source_columns": [
+            "اختیاری",
+            "توانایی حذف پیام های چت"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "can_manage_video_chats",
+          "source_type": "Boolean",
+          "source_columns": [
+            "اختیاری",
+            "توانایی مدیریت تماس تصویری"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "can_invite_users",
+          "source_type": "Boolean",
+          "source_columns": [
+            "اختیاری",
+            "توانایی دعوت کاربر"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "can_restrict_members",
+          "source_type": "Boolean",
+          "source_columns": [
+            "اختیاری",
+            "توانایی محدود کردن کاربران"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "bale.bot.setChatPhoto",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "setChatPhoto",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "setChatPhoto",
+      "wire_method": "setChatPhoto",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "source_type": "String یا Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه منحصربه‌فرد برای گفتگو هدف یا نام‌ کاربری کانال هدف (با فرمت @channelusername)"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "photo",
+          "source_type": "InputFile",
+          "source_columns": [
+            "الزامی",
+            "تصویر گفتگو جدید که با استفاده از multipart/form-data آپلود شده است."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "bale.bot.leaveChat",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "leaveChat",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "leaveChat",
+      "wire_method": "leaveChat",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "source_type": "String یا Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه منحصربه‌فرد برای گفتگو هدف یا نام‌ کاربری کانال هدف (با فرمت @channelusername)"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "bale.bot.getChat",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "getChat",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "getChat",
+      "wire_method": "getChat",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "source_type": "String یا Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه منحصربه‌فرد برای گفتگو هدف یا نام‌ کاربری کانال هدف (با فرمت @channelusername)"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "bale.bot.getChatAdministrators",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "getChatAdministrators",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "getChatAdministrators",
+      "wire_method": "getChatAdministrators",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "source_type": "String یا Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه منحصربه‌فرد برای گفتگو هدف یا نام‌ کاربری کانال هدف (با فرمت @channelusername)"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "bale.bot.getChatMembersCount",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "getChatMembersCount",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "getChatMembersCount",
+      "wire_method": "getChatMembersCount",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "source_type": "String یا Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه منحصربه‌فرد برای گفتگو هدف یا نام‌ کاربری کانال هدف (با فرمت @channelusername)"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "bale.bot.getChatMember",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "getChatMember",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "getChatMember",
+      "wire_method": "getChatMember",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "source_type": "String یا Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه منحصربه‌فرد برای گفتگو هدف یا نام‌ کاربری کانال هدف (با فرمت @channelusername)"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "user_id",
+          "source_type": "Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه منحصربه‌فرد کاربر"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "bale.bot.pinChatMessage",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "pinChatMessage",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "pinChatMessage",
+      "wire_method": "pinChatMessage",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "source_type": "String یا Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه منحصربه‌فرد برای گفتگو هدف یا نام‌ کاربری کانال هدف (با فرمت @channelusername)"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "message_id",
+          "source_type": "Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه منحصر به فرد پیام"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "bale.bot.unPinChatMessage",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "unPinChatMessage",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "unPinChatMessage",
+      "wire_method": "unPinChatMessage",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "source_type": "String یا Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه منحصربه‌فرد برای گفتگو هدف یا نام‌ کاربری کانال هدف (با فرمت @channelusername)"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "message_id",
+          "source_type": "Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه منحصر به فرد پیام"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "bale.bot.unpinAllChatMessages",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "unpinAllChatMessages",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "unpinAllChatMessages",
+      "wire_method": "unpinAllChatMessages",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "source_type": "String یا Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه منحصربه‌فرد برای گفتگو هدف یا نام‌ کاربری کانال هدف (با فرمت @channelusername)"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "bale.bot.setChatTitle",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "setChatTitle",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "setChatTitle",
+      "wire_method": "setChatTitle",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "source_type": "String یا Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه منحصربه‌فرد برای گفتگو هدف یا نام‌ کاربری کانال هدف (با فرمت @channelusername)"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "title",
+          "source_type": "String",
+          "source_columns": [
+            "الزامی",
+            "عنوان جدید گروه"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "bale.bot.setChatDescription",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "setChatDescription",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "setChatDescription",
+      "wire_method": "setChatDescription",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "source_type": "String یا Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه منحصربه‌فرد برای گفتگو هدف یا نام‌ کاربری کانال هدف (با فرمت @channelusername)"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "description",
+          "source_type": "String",
+          "source_columns": [
+            "الزامی",
+            "توضیحات جدید"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "bale.bot.deleteChatPhoto",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "deleteChatPhoto",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "deleteChatPhoto",
+      "wire_method": "deleteChatPhoto",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "source_type": "String یا Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه منحصربه‌فرد برای گفتگو هدف یا نام‌ کاربری کانال هدف (با فرمت @channelusername)"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "bale.bot.createChatInviteLink",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "createChatInviteLink",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "createChatInviteLink",
+      "wire_method": "createChatInviteLink",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "source_type": "String یا Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه منحصربه‌فرد برای گفتگو هدف یا نام‌ کاربری کانال هدف (با فرمت @channelusername)"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "bale.bot.revokeChatInviteLink",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "revokeChatInviteLink",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "revokeChatInviteLink",
+      "wire_method": "revokeChatInviteLink",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "source_type": "String یا Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه منحصربه‌فرد برای گفتگو هدف یا نام‌ کاربری کانال هدف (با فرمت @channelusername)"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "invite_link",
+          "source_type": "String",
+          "source_columns": [
+            "الزامی",
+            "لینک عضویت"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "bale.bot.exportChatInviteLink",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "exportChatInviteLink",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "exportChatInviteLink",
+      "wire_method": "exportChatInviteLink",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "source_type": "String یا Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه منحصربه‌فرد برای گفتگو هدف یا نام‌ کاربری کانال هدف (با فرمت @channelusername)"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "bale.bot.editMessageText",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "editMessageText",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "editMessageText",
+      "wire_method": "editMessageText",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "source_type": "String یا Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه منحصربه‌فرد برای گفتگو هدف یا نام کاربری کانال هدف (با فرمت @channelusername)"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "message_id",
+          "source_type": "Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه پیامی که باید ویرایش شود."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "text",
+          "source_type": "String",
+          "source_columns": [
+            "الزامی",
+            "متن جدید پیام، بین ۱ تا ۴۰۹۶ کاراکتر"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "reply_markup",
+          "source_type": "InlineKeyboardButton",
+          "source_columns": [
+            "اختیاری",
+            "یک شی JSON-serialized برای یک صفحه‌کلید inline"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "bale.bot.editMessageCaption",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "editMessageCaption",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "editMessageCaption",
+      "wire_method": "editMessageCaption",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "source_type": "String یا Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه منحصربه‌فرد برای گفتگو هدف یا نام کاربری کانال هدف (با فرمت @channelusername)"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "message_id",
+          "source_type": "Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه پیامی که باید ویرایش شود."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "caption",
+          "source_type": "String",
+          "source_columns": [
+            "اختیاری",
+            "زیرنویس جدید پیام؛ تا ۴۰۹۶ کاراکتر"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "reply_markup",
+          "source_type": "InlineKeyboardButton",
+          "source_columns": [
+            "اختیاری",
+            "یک شی JSON-serialized برای یک صفحه‌کلید inline"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "bale.bot.editMessageReplyMarkup",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "editMessageReplyMarkup",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "editMessageReplyMarkup",
+      "wire_method": "editMessageReplyMarkup",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "source_type": "String یا Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه منحصربه‌فرد برای گفتگو هدف یا نام کاربری کانال هدف (با فرمت @channelusername)"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "message_id",
+          "source_type": "Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه پیامی که باید ویرایش شود."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "reply_markup",
+          "source_type": "InlineKeyboardButton",
+          "source_columns": [
+            "اختیاری",
+            "یک شی JSON-serialized برای یک صفحه‌کلید inline"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "bale.bot.deleteMessage",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "deleteMessage",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "deleteMessage",
+      "wire_method": "deleteMessage",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "source_type": "String یا Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه منحصربه‌فرد برای گفتگو هدف یا نام کاربری کانال هدف (با فرمت @channelusername)"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "message_id",
+          "source_type": "Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه پیامی که باید حذف شود."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "bale.bot.uploadStickerFile",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "uploadStickerFile",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "uploadStickerFile",
+      "wire_method": "uploadStickerFile",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "user_id",
+          "source_type": "Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه کاربری مالک فایل استیکر"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "sticker",
+          "source_type": "InputFile",
+          "source_columns": [
+            "الزامی",
+            "یک فایل به فرمت .WEBP، .PNG، .TGS یا .WEBM."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "bale.bot.createNewStickerSet",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "createNewStickerSet",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "createNewStickerSet",
+      "wire_method": "createNewStickerSet",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "user_id",
+          "source_type": "Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه کاربری مالک مجموعه استیکر تولیدشده"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "name",
+          "source_type": "String",
+          "source_columns": [
+            "الزامی",
+            "نام کوتاه مجموعه استیکر. این نام می‌تواند شامل حروف انگلیسی، اعداد یا \"_\" باشد. باید با یک حرف شروع شود و نمی‌تواند شامل چند خط underscore باشد و باید در پایان \"by_bot_username_\" قرار گیرد. bot_username نسبت به حروف بزرگ و کوچک حساس است. بین ۱ تا ۶۴ کاراکتر"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "title",
+          "source_type": "String",
+          "source_columns": [
+            "الزامی",
+            "عنوان بسته‌ی استیکر، بین ۱ تا ۶۴ کاراکتر"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "sticker",
+          "source_type": "آرایه‌ای از InputSticker",
+          "source_columns": [
+            "الزامی",
+            "یک لیست JSON-serialized شامل ۱ تا ۵۰ استیکر که باید به بسته‌ی استیکر اضافه شوند."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "bale.bot.addStickerToSet",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "addStickerToSet",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "addStickerToSet",
+      "wire_method": "addStickerToSet",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "user_id",
+          "source_type": "Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه کاربری مالک بسته‌ی استیکر"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "name",
+          "source_type": "String",
+          "source_columns": [
+            "الزامی",
+            "نام بسته‌ی استیکر"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "sticker",
+          "source_type": "InputSticker",
+          "source_columns": [
+            "الزامی",
+            "یک شی JSON-serialized با اطلاعاتی در مورد استیکر اضافه‌شده. اگر دقیقاً همان استیکر به بسته اضافه شده باشد، بسته‌ی استیکر تغییر نخواهد کرد."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "bale.bot.sendInvoice",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "sendInvoice",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "sendInvoice",
+      "wire_method": "sendInvoice",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "source_type": "String یا Integer",
+          "source_columns": [
+            "الزامی",
+            "شناسه منحصربه‌فرد گفتگو هدف یا نام‌ کاربری کانال هدف (با فرمت @channelusername)"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "title",
+          "source_type": "String",
+          "source_columns": [
+            "الزامی",
+            "نام محصول، بین ۱ تا ۳۲ کاراکتر"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "description",
+          "source_type": "String",
+          "source_columns": [
+            "الزامی",
+            "توصیف محصول، بین ۱ تا ۲۵۵ کاراکتر"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "payload",
+          "source_type": "String",
+          "source_columns": [
+            "الزامی",
+            "payload صورتحساب تعریف‌شده توسط بازو، بین ۱ تا ۱۲۸ بایت. این فیلد برای کاربر نمایش داده نمی‌شود. از آن برای فرآیندهای داخلی خود استفاده کنید.این مقدار پس از پرداخت موفق در آپدیت SuccessfulPayment بازگشت داده میشود و میتوان با استفاده از این مقدار، درخواست های پول را متمایز کرد."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "provider_token",
+          "source_type": "String",
+          "source_columns": [
+            "الزامی",
+            "توکن پرداخت کیف پولی که از @botfather (opens in a new tab) دریافت کرده‌اید."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "prices",
+          "source_type": "آرایه‌ای از LabeledPrice",
+          "source_columns": [
+            "الزامی",
+            "صورت‌حساب خرید، یک لیست JSON-serialized از محصولات سفارش شامل عنوان کالا و قیمت محصول است که مجموع آنها به عنوان مبلغ نهایی در نظر گرفته می شود."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "photo_url",
+          "source_type": "String",
+          "source_columns": [
+            "اختیاری",
+            "URL تصویر محصول برای صورتحساب. یک تصویر از کالا را می توانید به عنوان تصویر درخواست پول ارسال کنید.وقتی افراد، چیزی را که برای آن هزینه می‌کنند، ببینند، حس بهتری خواهند داشت."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "reply_to_message_id",
+          "source_type": "Integer",
+          "source_columns": [
+            "اختیاری",
+            "شناسه پیام اصلی که بر روی آن پاسخ داده شده است."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "bale.bot.createInvoiceLink",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "createInvoiceLink",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "createInvoiceLink",
+      "wire_method": "createInvoiceLink",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "title",
+          "source_type": "String",
+          "source_columns": [
+            "الزامی",
+            "نام محصول، بین ۱ تا ۳۲ کاراکتر"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "description",
+          "source_type": "String",
+          "source_columns": [
+            "الزامی",
+            "توصیف محصول، بین ۱ تا ۲۵۵ کاراکتر"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "payload",
+          "source_type": "String",
+          "source_columns": [
+            "الزامی",
+            "payload صورتحساب تعریف‌شده توسط بازو، بین ۱ تا ۱۲۸ بایت. این فیلد برای کاربر نمایش داده نمی‌شود. از آن برای فرآیندهای داخلی خود استفاده کنید.این مقدار پس از پرداخت موفق در آپدیت SuccessfulPayment بازگشت داده میشود و میتوان با استفاده از این مقدار، درخواست های پول را متمایز کرد."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "provider_token",
+          "source_type": "String",
+          "source_columns": [
+            "الزامی",
+            "توکن پرداخت کیف پولی که از @botfather (opens in a new tab) دریافت کرده‌اید."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "prices",
+          "source_type": "آرایه‌ای از LabeledPrice",
+          "source_columns": [
+            "الزامی",
+            "صورت‌حساب خرید، یک لیست JSON-serialized از محصولات سفارش شامل عنوان کالا و قیمت محصول است که مجموع آنها به عنوان مبلغ نهایی در نظر گرفته می شود."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "bale.bot.answerPreCheckoutQuery",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "answerPreCheckoutQuery",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "answerPreCheckoutQuery",
+      "wire_method": "answerPreCheckoutQuery",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "pre_checkout_query_id",
+          "source_type": "String",
+          "source_columns": [
+            "الزامی",
+            "شناسه یکتا مربوط به آپدیت PreCheckoutQuery"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "ok",
+          "source_type": "Boolean",
+          "source_columns": [
+            "الزامی",
+            "مقدار true به این معناست که همه چیز مرتب است (اطلاعات پرداخت درست است، کالاها موجود هستند و ...) و بازو آماده ادامه پردازش سفارش است. در صورتی که مشکلی وجود دارد مقدار false برگردانید."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "error_message",
+          "source_type": "String",
+          "source_columns": [
+            "اختیاری",
+            "در صورتی که مقدار ok برابر با false باشد، این فیلد الزامی و حاوی پیام خطایی است که برای کاربر توضیح می‌دهد که چرا پرداخت امکان‌پذیر نیست (این پیام به کاربر نمایش داده خواهد شد)."
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "bale.bot.inquireTransaction",
+      "provider": "bale",
+      "surface": "bot",
+      "operation": "inquireTransaction",
+      "source_id": "S1",
+      "source_url": "https://docs.bale.ai/",
+      "source_revision": "sha256:53e8617ae0e8facfa4b075e6690a7acd464869ba6051b87faab36fc268280b9f",
+      "source_section": "inquireTransaction",
+      "wire_method": "inquireTransaction",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "transaction_id",
+          "source_type": "String",
+          "source_columns": [
+            "شناسه یکتای تراکنش که برای استعلام استفاده می‌شود.",
+            "الزامی"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "rubika.bot.getMe",
+      "provider": "rubika",
+      "surface": "bot",
+      "operation": "getMe",
+      "source_id": "S14",
+      "source_url": "https://rubika.ir/botapi/methods",
+      "source_revision": "sha256:2e61ae356f9e000854dcf3c42778460b45cbb3d2ac261e0d944099eb3224b773",
+      "source_section": "_1",
+      "wire_method": "getMe",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [],
+      "schema_status": "normalized-initial-slice",
+      "response_model": "BotIdentity",
+      "error_cases": [
+        "provider-error",
+        "http-error",
+        "network-timeout",
+        "invalid-json",
+        "missing-required-response-field",
+        "invalid-request-payload"
+      ],
+      "side_effect": "read",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "implemented",
+      "contract_test": "passed",
+      "live_test": "not-run",
+      "limitations": [
+        "Nested provider-specific models remain native arrays; full model normalization is pending.",
+        "Envelope status/data evidenced by R1 and negative probe P1; valid-token success unverified.",
+        "DOC-10: accept documented data.bot and R1 direct data bot; live shape unverified."
+      ],
+      "contract_evidence": "tests/Contract/OfficialDriversTest.php; synthetic source-based fixtures, not live captures"
+    },
+    {
+      "id": "rubika.bot.sendMessage",
+      "provider": "rubika",
+      "surface": "bot",
+      "operation": "sendMessage",
+      "source_id": "S14",
+      "source_url": "https://rubika.ir/botapi/methods",
+      "source_revision": "sha256:2e61ae356f9e000854dcf3c42778460b45cbb3d2ac261e0d944099eb3224b773",
+      "source_section": "text-keypad-inlinekeypad",
+      "wire_method": "sendMessage",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "type": "string",
+          "required": true,
+          "nullable": false,
+          "omission_semantics": "required",
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": "123"
+        },
+        {
+          "wire_name": "text",
+          "type": "string",
+          "required": true,
+          "nullable": false,
+          "omission_semantics": "required",
+          "default": null,
+          "constraints": [
+            "nonempty UTF-8"
+          ],
+          "nested_schema": null,
+          "example": "سلام دنیا 👩‍💻"
+        },
+        {
+          "wire_name": "reply_to_message_id",
+          "type": "string",
+          "required": false,
+          "nullable": false,
+          "omission_semantics": "omitted when SDK argument is null; false and zero preserved",
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": "0007"
+        },
+        {
+          "wire_name": "disable_notification",
+          "type": "boolean",
+          "required": false,
+          "nullable": false,
+          "omission_semantics": "omitted when SDK argument is null; false and zero preserved",
+          "default": false,
+          "constraints": [],
+          "nested_schema": null,
+          "example": false
+        },
+        {
+          "wire_name": "inline_keypad",
+          "type": "object",
+          "required": false,
+          "nullable": false,
+          "omission_semantics": "omitted when SDK argument is null; false and zero preserved",
+          "default": null,
+          "constraints": [],
+          "nested_schema": {
+            "source_model": "Keypad",
+            "normalization": "pending"
+          },
+          "example": {
+            "rows": []
+          }
+        },
+        {
+          "wire_name": "chat_keypad",
+          "type": "object",
+          "required": false,
+          "nullable": false,
+          "omission_semantics": "omitted when SDK argument is null; false and zero preserved",
+          "default": null,
+          "constraints": [],
+          "nested_schema": {
+            "source_model": "Keypad",
+            "normalization": "pending"
+          },
+          "example": {
+            "rows": []
+          }
+        },
+        {
+          "wire_name": "chat_keypad_type",
+          "type": "string",
+          "required": false,
+          "nullable": false,
+          "omission_semantics": "omitted when SDK argument is null; false and zero preserved",
+          "default": null,
+          "constraints": [
+            "New|Remove"
+          ],
+          "nested_schema": null,
+          "example": "Remove"
+        }
+      ],
+      "schema_status": "normalized-initial-slice",
+      "response_model": "MessageReceipt",
+      "error_cases": [
+        "provider-error",
+        "http-error",
+        "network-timeout",
+        "invalid-json",
+        "missing-required-response-field",
+        "invalid-request-payload"
+      ],
+      "side_effect": "write",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "implemented",
+      "contract_test": "passed",
+      "live_test": "not-run",
+      "limitations": [
+        "Nested provider-specific models remain native arrays; full model normalization is pending.",
+        "Envelope status/data evidenced by R1 and negative probe P1; valid-token success unverified."
+      ],
+      "contract_evidence": "tests/Contract/OfficialDriversTest.php; synthetic source-based fixtures, not live captures"
+    },
+    {
+      "id": "rubika.bot.sendPoll",
+      "provider": "rubika",
+      "surface": "bot",
+      "operation": "sendPoll",
+      "source_id": "S14",
+      "source_url": "https://rubika.ir/botapi/methods",
+      "source_revision": "sha256:2e61ae356f9e000854dcf3c42778460b45cbb3d2ac261e0d944099eb3224b773",
+      "source_section": "_3",
+      "wire_method": "sendPoll",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "source_type": "string",
+          "source_columns": [
+            "شناسه چت"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "question",
+          "source_type": "string",
+          "source_columns": [
+            "متن سوال"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "options",
+          "source_type": "list[string]",
+          "source_columns": [
+            "گزینه‌های سوال"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "message_id",
+          "source_type": "string",
+          "source_columns": [
+            "شناسه پیام"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "rubika.bot.sendLocation",
+      "provider": "rubika",
+      "surface": "bot",
+      "operation": "sendLocation",
+      "source_id": "S14",
+      "source_url": "https://rubika.ir/botapi/methods",
+      "source_revision": "sha256:2e61ae356f9e000854dcf3c42778460b45cbb3d2ac261e0d944099eb3224b773",
+      "source_section": "_4",
+      "wire_method": "sendLocation",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "source_type": "string",
+          "source_columns": [
+            "شناسه چت"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "latitude",
+          "source_type": "string",
+          "source_columns": [
+            "عرض جغرافیایی"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "longitude",
+          "source_type": "string",
+          "source_columns": [
+            "طول جغرافیایی"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "chat_keypad",
+          "source_type": "Keypad",
+          "source_columns": [
+            "keypad"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "disable_notification",
+          "source_type": "string",
+          "source_columns": [
+            "مشخص می‌کند آیا اعلان‌ها غیرفعال شوند یا خیر (پیش‌فرض:\n                          false)"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "inline_keypad",
+          "source_type": "Keypad",
+          "source_columns": [
+            "Keypad"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "reply_to_message_id",
+          "source_type": "string",
+          "source_columns": [
+            "شناسه پیام برای ریپلای"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "chat_keypad_type",
+          "source_type": "ChatKeypadTypeEnum",
+          "source_columns": [
+            "نوع keypad"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "message_id",
+          "source_type": "string",
+          "source_columns": [
+            "شناسه پیام"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "rubika.bot.sendContact",
+      "provider": "rubika",
+      "surface": "bot",
+      "operation": "sendContact",
+      "source_id": "S14",
+      "source_url": "https://rubika.ir/botapi/methods",
+      "source_revision": "sha256:2e61ae356f9e000854dcf3c42778460b45cbb3d2ac261e0d944099eb3224b773",
+      "source_section": "_5",
+      "wire_method": "sendContact",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "source_type": "string",
+          "source_columns": [
+            "شناسه چت"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "first_name",
+          "source_type": "string",
+          "source_columns": [
+            "نام مخاطب"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "last_name",
+          "source_type": "string",
+          "source_columns": [
+            "نام‌خانوادگی مخاطب"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "phone_number",
+          "source_type": "string",
+          "source_columns": [
+            "شماره مخاطب"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "chat_keypad",
+          "source_type": "Keypad",
+          "source_columns": [
+            "keypad"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "disable_notification",
+          "source_type": "string",
+          "source_columns": [
+            "مشخص می‌کند آیا اعلان‌ها غیرفعال شوند یا خیر (پیش‌فرض:\n                          false)"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "inline_keypad",
+          "source_type": "Keypad",
+          "source_columns": [
+            "keypad"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "reply_to_message_id",
+          "source_type": "string",
+          "source_columns": [
+            "شناسه پیام برای ریپلای"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "chat_keypad_type",
+          "source_type": "ChatKeypadTypeEnum",
+          "source_columns": [
+            "نوع keypad"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "message_id",
+          "source_type": "string",
+          "source_columns": [
+            "شناسه پیام"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "rubika.bot.getChat",
+      "provider": "rubika",
+      "surface": "bot",
+      "operation": "getChat",
+      "source_id": "S14",
+      "source_url": "https://rubika.ir/botapi/methods",
+      "source_revision": "sha256:2e61ae356f9e000854dcf3c42778460b45cbb3d2ac261e0d944099eb3224b773",
+      "source_section": "_6",
+      "wire_method": "getChat",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "source_type": "string",
+          "source_columns": [
+            "شناسه چت"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "chat",
+          "source_type": "Chat",
+          "source_columns": [
+            "چت"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "rubika.bot.getUpdates",
+      "provider": "rubika",
+      "surface": "bot",
+      "operation": "getUpdates",
+      "source_id": "S14",
+      "source_url": "https://rubika.ir/botapi/methods",
+      "source_revision": "sha256:2e61ae356f9e000854dcf3c42778460b45cbb3d2ac261e0d944099eb3224b773",
+      "source_section": "_7",
+      "wire_method": "getUpdates",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "offset_id",
+          "type": "string",
+          "required": false,
+          "nullable": false,
+          "omission_semantics": "omitted when SDK argument is null; false and zero preserved",
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": "0000"
+        },
+        {
+          "wire_name": "limit",
+          "type": "integer",
+          "required": false,
+          "nullable": false,
+          "omission_semantics": "omitted when SDK argument is null; false and zero preserved",
+          "default": null,
+          "constraints": [
+            "SDK requires positive integer; provider upper bound unknown"
+          ],
+          "nested_schema": null,
+          "example": 10
+        }
+      ],
+      "schema_status": "normalized-initial-slice",
+      "response_model": "UpdateBatch",
+      "error_cases": [
+        "provider-error",
+        "http-error",
+        "network-timeout",
+        "invalid-json",
+        "missing-required-response-field",
+        "invalid-request-payload"
+      ],
+      "side_effect": "read",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "implemented",
+      "contract_test": "passed",
+      "live_test": "not-run",
+      "limitations": [
+        "Nested provider-specific models remain native arrays; full model normalization is pending.",
+        "DOC-01: offset_id follows method table; introduction says start_id; live pagination unverified.",
+        "Stable event identity unknown; durable Poller explicitly unsupported.",
+        "Envelope status/data evidenced by R1 and negative probe P1; valid-token success unverified."
+      ],
+      "contract_evidence": "tests/Contract/OfficialDriversTest.php; synthetic source-based fixtures, not live captures"
+    },
+    {
+      "id": "rubika.bot.forwardMessage",
+      "provider": "rubika",
+      "surface": "bot",
+      "operation": "forwardMessage",
+      "source_id": "S14",
+      "source_url": "https://rubika.ir/botapi/methods",
+      "source_revision": "sha256:2e61ae356f9e000854dcf3c42778460b45cbb3d2ac261e0d944099eb3224b773",
+      "source_section": "_8",
+      "wire_method": "forwardMessage",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "from_chat_id",
+          "source_type": "string",
+          "source_columns": [
+            "از چتِ؟"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "message_id",
+          "source_type": "string",
+          "source_columns": [
+            "شناسه پیام"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "to_chat_id",
+          "source_type": "string",
+          "source_columns": [
+            "به چتِ؟"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "disable_notification",
+          "source_type": "bool",
+          "source_columns": [
+            "مشخص می‌کند آیا اعلان‌ها غیرفعال شوند یا خیر (پیش‌فرض:\n                          false)"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "new_message_id",
+          "source_type": "string",
+          "source_columns": [
+            "شناسه پیام جدید"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "rubika.bot.editMessageText",
+      "provider": "rubika",
+      "surface": "bot",
+      "operation": "editMessageText",
+      "source_id": "S14",
+      "source_url": "https://rubika.ir/botapi/methods",
+      "source_revision": "sha256:2e61ae356f9e000854dcf3c42778460b45cbb3d2ac261e0d944099eb3224b773",
+      "source_section": "_9",
+      "wire_method": "editMessageText",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "source_type": "string",
+          "source_columns": [
+            "شناسه چت"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "message_id",
+          "source_type": "string",
+          "source_columns": [
+            "شناسه پیام"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "text",
+          "source_type": "string",
+          "source_columns": [
+            "پیام"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "rubika.bot.editMessageKeypad",
+      "provider": "rubika",
+      "surface": "bot",
+      "operation": "editMessageKeypad",
+      "source_id": "S14",
+      "source_url": "https://rubika.ir/botapi/methods",
+      "source_revision": "sha256:2e61ae356f9e000854dcf3c42778460b45cbb3d2ac261e0d944099eb3224b773",
+      "source_section": "inline-keypad",
+      "wire_method": "editMessageKeypad",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "source_type": "string",
+          "source_columns": [
+            "شناسه چت"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "message_id",
+          "source_type": "string",
+          "source_columns": [
+            "شناسه پیام"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "inline_keypad",
+          "source_type": "Keypad",
+          "source_columns": [
+            "Keypad"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "rubika.bot.deleteMessage",
+      "provider": "rubika",
+      "surface": "bot",
+      "operation": "deleteMessage",
+      "source_id": "S14",
+      "source_url": "https://rubika.ir/botapi/methods",
+      "source_revision": "sha256:2e61ae356f9e000854dcf3c42778460b45cbb3d2ac261e0d944099eb3224b773",
+      "source_section": "_10",
+      "wire_method": "deleteMessage",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "source_type": "string",
+          "source_columns": [
+            "شناسه چت"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "message_id",
+          "source_type": "string",
+          "source_columns": [
+            "شناسه پیام"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "rubika.bot.setCommands",
+      "provider": "rubika",
+      "surface": "bot",
+      "operation": "setCommands",
+      "source_id": "S14",
+      "source_url": "https://rubika.ir/botapi/methods",
+      "source_revision": "sha256:2e61ae356f9e000854dcf3c42778460b45cbb3d2ac261e0d944099eb3224b773",
+      "source_section": "commands",
+      "wire_method": "setCommands",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "bot_commands",
+          "source_type": "list[BotCommand]",
+          "source_columns": [
+            "آرایه‌ای از دستورات"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "rubika.bot.updateBotEndpoints",
+      "provider": "rubika",
+      "surface": "bot",
+      "operation": "updateBotEndpoints",
+      "source_id": "S14",
+      "source_url": "https://rubika.ir/botapi/methods",
+      "source_revision": "sha256:2e61ae356f9e000854dcf3c42778460b45cbb3d2ac261e0d944099eb3224b773",
+      "source_section": "url-endpoint",
+      "wire_method": "updateBotEndpoints",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "url",
+          "source_type": "string",
+          "source_columns": [
+            "آدرس جدید"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "type",
+          "source_type": "UpdateEndpointTypeEnum",
+          "source_columns": [
+            "نوع آدرس"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "rubika.bot.editChatKeypad",
+      "provider": "rubika",
+      "surface": "bot",
+      "operation": "editChatKeypad",
+      "source_id": "S14",
+      "source_url": "https://rubika.ir/botapi/methods",
+      "source_revision": "sha256:2e61ae356f9e000854dcf3c42778460b45cbb3d2ac261e0d944099eb3224b773",
+      "source_section": "keypad_1",
+      "wire_method": "editChatKeypad",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "source_type": "string",
+          "source_columns": [
+            "شناسه چت"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "chat_keypad_type",
+          "source_type": "ChatKeypadTypeEnum",
+          "source_columns": [
+            "مقدارِ Remove"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "rubika.bot.getFile",
+      "provider": "rubika",
+      "surface": "bot",
+      "operation": "getFile",
+      "source_id": "S14",
+      "source_url": "https://rubika.ir/botapi/methods",
+      "source_revision": "sha256:2e61ae356f9e000854dcf3c42778460b45cbb3d2ac261e0d944099eb3224b773",
+      "source_section": "_12",
+      "wire_method": "getFile",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "file_id",
+          "source_type": "string",
+          "source_columns": [
+            "شناسه فایل"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "download_url",
+          "source_type": "string",
+          "source_columns": [
+            "آدرس فایل در سرور"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "rubika.bot.sendFile",
+      "provider": "rubika",
+      "surface": "bot",
+      "operation": "sendFile",
+      "source_id": "S14",
+      "source_url": "https://rubika.ir/botapi/methods",
+      "source_revision": "sha256:2e61ae356f9e000854dcf3c42778460b45cbb3d2ac261e0d944099eb3224b773",
+      "source_section": "_13",
+      "wire_method": "sendFile",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "source_type": "string",
+          "source_columns": [
+            "شناسه چت"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "file_id",
+          "source_type": "string",
+          "source_columns": [
+            "شناسه فایل"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "text",
+          "source_type": "string",
+          "source_columns": [
+            "متن"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "reply_to_message_id",
+          "source_type": "string",
+          "source_columns": [
+            "شناسه پیام برای ریپلای"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "disable_notification",
+          "source_type": "string",
+          "source_columns": [
+            "مشخص می‌کند آیا اعلان‌ها غیرفعال شوند یا خیر (پیش‌فرض:\n                          false)"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "chat_keypad",
+          "source_type": "Keypad",
+          "source_columns": [
+            "keypad"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "inline_keypad",
+          "source_type": "Keypad",
+          "source_columns": [
+            "keypad"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "chat_keypad_type",
+          "source_type": "ChatKeypadTypeEnum",
+          "source_columns": [
+            "نوع keypad"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "message_id",
+          "source_type": "string",
+          "source_columns": [
+            "شناسه پیام"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "rubika.bot.requestSendFile",
+      "provider": "rubika",
+      "surface": "bot",
+      "operation": "requestSendFile",
+      "source_id": "S14",
+      "source_url": "https://rubika.ir/botapi/methods",
+      "source_revision": "sha256:2e61ae356f9e000854dcf3c42778460b45cbb3d2ac261e0d944099eb3224b773",
+      "source_section": "_14",
+      "wire_method": "requestSendFile",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "type",
+          "source_type": "FileTypeEnum",
+          "source_columns": [
+            "نوع فایل"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "upload_url",
+          "source_type": "string",
+          "source_columns": [
+            "آدرس مخصوص آپلود فایل در سرور"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "rubika.bot.banChatMember",
+      "provider": "rubika",
+      "surface": "bot",
+      "operation": "banChatMember",
+      "source_id": "S14",
+      "source_url": "https://rubika.ir/botapi/methods",
+      "source_revision": "sha256:2e61ae356f9e000854dcf3c42778460b45cbb3d2ac261e0d944099eb3224b773",
+      "source_section": "_15",
+      "wire_method": "banChatMember",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "source_type": "string",
+          "source_columns": [
+            "شناسه چت"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "user_id",
+          "source_type": "string",
+          "source_columns": [
+            "شناسه کاربر"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "rubika.bot.unbanChatMember",
+      "provider": "rubika",
+      "surface": "bot",
+      "operation": "unbanChatMember",
+      "source_id": "S14",
+      "source_url": "https://rubika.ir/botapi/methods",
+      "source_revision": "sha256:2e61ae356f9e000854dcf3c42778460b45cbb3d2ac261e0d944099eb3224b773",
+      "source_section": "_16",
+      "wire_method": "unbanChatMember",
+      "http_method": "POST",
+      "authentication": "bot-token-in-url-path",
+      "parameters": [
+        {
+          "wire_name": "chat_id",
+          "source_type": "string",
+          "source_columns": [
+            "شناسه چت"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        },
+        {
+          "wire_name": "user_id",
+          "source_type": "string",
+          "source_columns": [
+            "شناسه کاربر"
+          ],
+          "type": null,
+          "required": null,
+          "nullable": null,
+          "omission_semantics": null,
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": null
+        }
+      ],
+      "schema_status": "source-table-extracted-normalization-pending",
+      "response_model": null,
+      "error_cases": [],
+      "side_effect": "unknown",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "pending",
+      "contract_test": "not-run",
+      "live_test": "not-run",
+      "limitations": []
+    },
+    {
+      "id": "eitaa.app.sendMessage",
+      "provider": "eitaa",
+      "surface": "app",
+      "operation": "sendMessage",
+      "source_id": "S9",
+      "source_url": "https://developer.eitaa.com/docs/Develop/SendMassage/",
+      "source_revision": "sha256:911a524ccd3136d7e48673fab6df8124b6066130d6eecc5972be1c7fc7e3a2ed",
+      "wire_method": "sendMessage",
+      "http_method": "POST",
+      "authentication": "app-token-in-json-body",
+      "parameters": [
+        {
+          "wire_name": "token",
+          "type": "string",
+          "required": true,
+          "nullable": false,
+          "omission_semantics": "required",
+          "default": null,
+          "constraints": [],
+          "nested_schema": null,
+          "example": "[REDACTED]"
+        },
+        {
+          "wire_name": "chat_id",
+          "type": "integer",
+          "required": true,
+          "nullable": false,
+          "omission_semantics": "required",
+          "default": null,
+          "constraints": [
+            "positive; range checked"
+          ],
+          "nested_schema": null,
+          "example": 123
+        },
+        {
+          "wire_name": "text",
+          "type": "string",
+          "required": true,
+          "nullable": false,
+          "omission_semantics": "required",
+          "default": null,
+          "constraints": [
+            "nonempty UTF-8"
+          ],
+          "nested_schema": null,
+          "example": "سلام دنیا 👩‍💻"
+        }
+      ],
+      "schema_status": "normalized-initial-slice",
+      "response_model": "MessageReceipt with null message reference",
+      "error_cases": [
+        "provider-error",
+        "http-error",
+        "network-timeout",
+        "invalid-json",
+        "missing-required-response-field",
+        "invalid-request-payload"
+      ],
+      "side_effect": "write",
+      "retry_policy": "never",
+      "evidence": "documented",
+      "implementation": "implemented",
+      "contract_test": "passed",
+      "live_test": "not-run",
+      "limitations": [
+        "Requires permission from destination user.",
+        "Not the EitaaYar channel API; no getUpdates is exposed."
+      ],
+      "contract_evidence": "tests/Contract/OfficialDriversTest.php"
+    }
+  ]
+}
