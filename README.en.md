@@ -1,5 +1,7 @@
 # PayamBridge
 
+This project was developed using AI agents.
+
 ## Contents
 
 - [Current capabilities](#current-capabilities)
