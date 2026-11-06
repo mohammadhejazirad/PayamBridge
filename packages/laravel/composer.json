@@ -5,13 +5,70 @@
     "license": "MIT",
     "require": {
         "php": "~8.3.0 || ~8.4.0 || ~8.5.0",
-        "payambridge/sdk": "^0.1 || dev-main",
+        "payambridge/sdk": "^0.1",
         "illuminate/console": "^12.0 || ^13.0",
         "illuminate/contracts": "^12.0 || ^13.0",
         "illuminate/support": "^12.0 || ^13.0",
         "illuminate/notifications": "^12.0 || ^13.0"
     },
-    "autoload": {"psr-4": {"PayamBridge\\Laravel\\": "src/"}},
-    "extra": {"laravel": {"providers": ["PayamBridge\\Laravel\\PayamBridgeServiceProvider"], "aliases": {"PayamBridge": "PayamBridge\\Laravel\\Facades\\PayamBridge"}}},
-    "config": {"sort-packages": true, "allow-plugins": false}
+    "autoload": {
+        "psr-4": {
+            "PayamBridge\\Laravel\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "PayamBridge\\Laravel\\PayamBridgeServiceProvider"
+            ],
+            "aliases": {
+                "PayamBridge": "PayamBridge\\Laravel\\Facades\\PayamBridge"
+            }
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": false
+    },
+    "keywords": [
+        "php",
+        "laravel",
+        "sdk",
+        "bale",
+        "rubika",
+        "eitaa",
+        "messenger",
+        "notifications"
+    ],
+    "homepage": "https://github.com/mohammadhejazirad/PayamBridge",
+    "support": {
+        "issues": "https://github.com/mohammadhejazirad/PayamBridge/issues",
+        "source": "https://github.com/mohammadhejazirad/PayamBridge",
+        "docs": "https://github.com/mohammadhejazirad/PayamBridge/blob/main/README.en.md"
+    },
+    "archive": {
+        "exclude": [
+            "/.git",
+            "/.agents",
+            "/.aws",
+            "/.codex",
+            "/.docs",
+            "/.github",
+            "/.gitignore",
+            "/.gitattributes",
+            "/.vscode",
+            "/vendor",
+            "/.phpunit.cache",
+            "/.phpstan-cache",
+            "/coverage",
+            "/.env",
+            "/.env.*",
+            "/composer.lock",
+            "/tests",
+            "/tools",
+            "/phpunit.xml",
+            "/phpstan.neon",
+            "/pint.json"
+        ]
+    }
 }

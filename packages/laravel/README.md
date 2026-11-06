@@ -1,9 +1,39 @@
 # PayamBridge Laravel bridge
 
-Development package; not published yet. Integrates the separate `payambridge/sdk` package with Laravel 12/13 (target matrix) on PHP 8.3–8.5.
+Laravel integration for the separate payambridge/sdk package. PHP 8.3–8.5 and Illuminate/Laravel 12–13 are declared. This package depends on payambridge/sdk:^0.1. Install with composer require payambridge/laravel:^0.1 **after both packages are publicly published**; before that, use local path repositories for both packages with version 0.1.0 (see the repository's docs/installation.md).
 
-Features: auto-discovered provider, named immutable scoped connections, replaceable credential resolver, optional facade, text notification channel and read-only local `payam:capabilities` command. Config stores environment variable names rather than tokens. Publish it with `php artisan vendor:publish --tag=payambridge-config`.
+The auto-discovered provider registers scoped ConnectionManager, ConnectionFactory, and HttpTransport bindings. Optional facade: PayamBridge\Laravel\Facades\PayamBridge. Publish config with:
 
-When config is cached, provide referenced credentials in the real process environment or replace `CredentialResolver`. Resolve clients inside job handlers. Never serialize a client or blindly retry a notification after `AmbiguousDeliveryException`: delivery may have succeeded.
+~~~sh
+php artisan vendor:publish --tag=payambridge-config
+php artisan payam:capabilities bale
+~~~
 
-No routes, migrations or daemons are installed automatically. Webhook, user-session and Mini App integrations are not implemented in this initial slice. See the monorepo's `docs/laravel.md`, `docs/installation.md` and `docs/IMPLEMENTATION_STATUS.md` for current usage and executed verification. MIT.
+Config defines named bale Bot, rubika Bot, and eitaa-app App connections, plus HTTP timeouts. token_env contains an environment variable **name** such as PAYAMBRIDGE_BALE_TOKEN. With config:cache, put the credential in the actual worker/FPM environment or bind a custom PayamBridge\Laravel\CredentialResolver. Each manager call resolves a new immutable scoped connection and current credential. Authorize tenant access to connection names in the host application.
+
+~~~php
+use Illuminate\Notifications\Notification;
+use PayamBridge\Laravel\Notifications\PayamBridgeChannel;
+use PayamBridge\Laravel\Notifications\TextMessage;
+
+final class OrderRegistered extends Notification
+{
+    public function via(object $notifiable): array { return [PayamBridgeChannel::class]; }
+    public function toPayamBridge(object $notifiable): TextMessage
+    {
+        return new TextMessage('Order received');
+    }
+}
+~~~
+
+~~~php
+use Illuminate\Support\Facades\Notification;
+use PayamBridge\Laravel\Notifications\NotificationRoute;
+
+Notification::route('payambridge', new NotificationRoute('bale', '123456'))
+    ->notify(new OrderRegistered());
+~~~
+
+A notifiable may instead implement routeNotificationForPayambridge and return NotificationRoute, or null to skip. For queued notifications, resolve connections inside the worker; Credential cannot be serialized. Dispatch after database commit when the message depends on committed data. If a write raises AmbiguousDeliveryException, delivery may have succeeded; blind job retries may duplicate it.
+
+No routes, migrations, webhooks, or daemons are installed. The capabilities command lists local implemented capabilities without a network request, but needs the configured credential. Durable polling is only available for Bale via the core Poller/SQLite inbox. No valid-credential live request is claimed by these docs. See the repository's README, docs/laravel.md, docs/api.md, and docs/IMPLEMENTATION_STATUS.md. MIT.

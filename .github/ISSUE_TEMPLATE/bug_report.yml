@@ -1,0 +1,32 @@
+name: Bug report
+description: Report a reproducible SDK or Laravel integration bug
+body:
+  - type: markdown
+    attributes:
+      value: Do not post tokens or customer data. For vulnerabilities, use private security reporting.
+  - type: input
+    id: version
+    attributes:
+      label: Package versions
+      placeholder: payambridge/sdk 0.1.0, payambridge/laravel 0.1.0
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: PHP and Laravel versions
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: Use synthetic or sanitized values.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected and actual behavior
+    validations:
+      required: true

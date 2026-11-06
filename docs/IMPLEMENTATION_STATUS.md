@@ -1,78 +1,87 @@
-# وضعیت پیاده‌سازی اولیه
+# گزارش بررسی و آمادگی انتشار اولیه
 
-تاریخ: ۱۴۰۵/۰۸/۱۵، ۲۰۲۶-۱۱-۰۶. شناسه اجرای محلی: `local-20261106-initial`.
+تاریخ: ۲۰۲۶-۱۱-۰۶، ۱۴۰۵/۰۸/۱۵. شناسه اجرا: `local-20261106-release-readiness`.
 
-این تحویل، شروع اجرایی سند محصول است. پکیج منتشر نشده و آماده production اعلام نمی‌شود. گزارش ماشینی و hash فایل‌های کد/تست در `research/verification.json` ثبت شده است.
+این گزارش نتیجه اجرای واقعی بررسی‌های محلی روی تغییرات فعلی است. نسخه عمومی جدیدی منتشر نشده است. [گزارش ماشینی](../research/verification.json) نسخه وابستگی‌ها، hash کد و تست و مسیر شواهد موقت را ثبت می‌کند. نتایج اولیه قبلی با این گزارش جایگزین شده‌اند.
 
-## کد تحویل‌شده
+## آنچه تکمیل و اصلاح شد
 
-- `composer.json` و `src/`: هسته مستقل PHP، قراردادهای قابلیت، شناسه‌های scoped، مدل‌های نتیجه و event، transport مبتنی بر PSR-18/7/17/3، implementation پیش‌فرض Guzzle و خطاهای طبقه‌بندی‌شده.
-- `src/Drivers/`: سه driver مستقل BaleBot، RubikaBot و EitaaApp با هفت عملیات واقعی در سطح کد. فایل‌های provider جدا هستند و قراردادهایشان یکسان فرض نشده‌اند.
-- `src/Runtime/`: جمع‌آوری یک batch بله، inbox در SQLite، deduplication شناسه update، تراکنش مشترک cursor/event و lease با fencing. این قسمت هنوز dispatcher، outbox یا پردازش تجاری ندارد.
-- `packages/laravel/`: پکیج مستقل با auto-discovery، config شامل reference متغیر محیطی، اتصال‌های نام‌دار، binding قابل override، Facade اختیاری، Notification channel و دستور محلی `payam:capabilities`.
-- `src/Testing/` و `tests/`: fake مستقل برای هر instance، fixtureهای مصنوعی مبتنی بر منابع، unit/contract/integration/Testbench. هیچ fake به صورت پیش‌فرض success نمی‌سازد.
-- `research/`: منابع و hash، inventory عملیات، قابلیت‌ها، اختلاف مستندات، مجوز وابستگی‌ها، پرسش‌های باز و شواهد آزمون.
-- `docs/`، `examples/`، README فارسی/انگلیسی، CHANGELOG و CI هدف.
+- README فارسی و انگلیسی با پوشش متناظر: پیش‌نیازها، نصب قبل و بعد از انتشار، API فعلی، مثال PHP، تنظیمات لاراول، چند اتصال و tenant، اعلان هم‌زمان و صفی، polling، SQLite، خطاها، تست، استقرار و رفع اشکال.
+- جلوگیری از افشای نشانی حاوی توکن در خطای ساخت درخواست؛ خطا پیش از ارسال به‌صورت validation پاک‌سازی می‌شود.
+- حفظ وضعیت ارسال نامعلوم هنگام خرابی دسترسی به status/body پاسخ؛ خطای بستن stream دیگر پاسخ معتبر یا خطای اصلی HTTP را نمی‌پوشاند.
+- جلوگیری از پاک شدن cursor پایدار در batch بدون cursor جدید؛ تست replay، restart، تراکنش و lease همچنان برقرار است.
+- رفع ناسازگاری تحلیل استاتیک با حداقل PHPStan پشتیبانی‌شده، بدون تغییر قرارداد عمومی درایورها.
+- اصلاح آرشیوهای Composer برای حذف vendor، کش، فایل‌های محیطی و پوشه‌های توسعه؛ جداسازی توزیع SDK و Laravel به‌صورت خودکار بررسی می‌شود.
+- lock توسعه با PHP 8.3 سازگار شده است. CI تنظیم platform محلی را حذف می‌کند تا وابستگی‌ها برای PHP واقعی هر job resolve شوند.
+- GitHub Actions برای بررسی matrix و انتشار با تگ، subtree مستقل Laravel، پیش‌بررسی وابستگی پایدار، درخواست به‌روزرسانی Packagist و release notes؛ به‌علاوه راهنمای مشارکت، امنیت و قالب issue/PR.
 
-## آزمون‌های واقعاً اجراشده
+## ماتریس واقعاً اجراشده
 
-روی Linux با **PHP 8.5.12**:
+روی Linux، **هر ۱۲ ترکیب** PHP و Laravel و انتخاب وابستگی بررسی شد:
 
-- کل suite در **Laravel 13.40.0 / Testbench 11.3.0**: **۹۷ تست و ۲۳۰ assertion**؛ سه اجرای متوالی روی کد یکسان موفق شدند. هر اجرا شامل restart با دیتابیس پایدار، replay، قطع شبیه‌سازی‌شده ارتباط، خرابی نوشتن cursor و expiry/takeover قفل است.
-- همان suite در یک کپی مستقل با **Laravel 12.71.0 / Testbench 10**: **۹۷ تست و ۲۳۰ assertion** موفق.
-- نصب مصرف‌کننده PHP تمیز با `--no-dev` و کپی پکیج: موفق؛ بدون Illuminate و بدون PHPUnit/Testbench. Autoload و قرارداد getMe با fake بررسی شد.
-- نصب مصرف‌کننده Laravel 12 و 13 تمیز با `--no-dev`: موفق؛ package discovery، config cache، route cache، reference credential، resolve اتصال و دستور capabilities بررسی شد. این بررسی‌ها HTTP واقعی پیام‌رسان اجرا نکردند.
-- Notification بدون تغییر مدل User، صف sync و صف database با اجرای worker و serialization واقعی: موفق. توکن در payload صف قرار نگرفت.
-- `composer validate --strict` برای هر دو manifest، Pint، PHPStan سطح ۶، syntax تعداد ۵۵ فایل PHP و اعتبار JSONها: موفق.
-- `composer audit`: برای dependencyهای resolveشده در lock فعلی هیچ advisory امنیتی گزارش نشد؛ این نتیجه تضمین امنیت یا نبود باگ نیست.
+- **PHP 8.3.36** در Docker: Laravel 12 و 13، هرکدام با latest و prefer-lowest.
+- **PHP 8.4.27** در Docker: Laravel 12 و 13، هرکدام با latest و prefer-lowest.
+- **PHP 8.5.12** روی میزبان: Laravel 12 و 13، هرکدام با latest و prefer-lowest.
 
-گزارش line coverage فعلی برای sourceهای SDK و Laravel، شامل testing helper: **۳۷۹ از ۴۳۳ statement، معادل ۸۷٫۵۳٪**. برای تمام SDK به‌جز helper تست **۸۹٫۵۳٪**، و زیرمجموعه core بدون driver/runtime/helper/Laravel **۸۶٫۱۸٪** است. branch coverage اندازه‌گیری نشده است. هدف پیشنهادی انتشار core یعنی ۹۰٪ line و ۸۰٪ branch هنوز محقق یا تأیید نشده؛ پوشش generated یا mock به‌عنوان پوشش live محاسبه نشده است.
+در هر ترکیب یک اجرای مجموعه کامل و سپس **سه اجرای تکراری متوالی** موفق بود: در مجموع **۴۸ اجرای کامل**، هرکدام **۱۰۲ تست و ۲۴۳ assertion**. hash فایل‌های runtime و تست در همه checkoutهای مستقل با کد فعلی یکسان است. تست‌های fake به‌عنوان تست زنده حساب نشده‌اند.
 
-PHP 8.3/8.4، matrix کامل CI، prefer-lowest، Windows/macOS، mutation و soak بیست‌وچهارساعته هنوز اجرا نشده‌اند. فایل workflow آماده است؛ وجود آن معادل pass شدن CI نیست.
+نسخه‌های resolveشده:
 
-## پوشش API و مرز اطمینان
+- latest لاراول ۱۲: Framework `12.71.0` و Testbench `10.12.0`.
+- latest لاراول ۱۳: Framework `13.40.0` و Testbench `11.3.0`.
+- prefer-lowest لاراول ۱۲: Framework `12.69.0` و Testbench `10.2.0`.
+- prefer-lowest لاراول ۱۳: Framework `13.30.0` و Testbench `11.0.0`.
+- PHPUnit در latest برابر `12.5.43` و در lowest برابر `12.5.8`؛ PHPStan به‌ترتیب `2.3.5` و `2.1.0`؛ Pint به‌ترتیب `1.32.1` و `1.20.0`.
 
-Inventory فعلی شامل **۷۰ عملیات** است: ۵۰ بات بله، ۱۹ متد مستقل روبیکا و یک ارسال برنامه ایتا. فهرست کل محصول، از جمله surfaceهای دیگر، هنوز کامل نیست. وضعیت‌های باقی‌مانده از مخرج حذف نشده‌اند.
+محدودیت‌ها و سیاست امنیتی Composer باعث می‌شوند prefer-lowest الزاماً اولین نسخه تاریخی هر major را انتخاب نکند. latest نیز نسبت به metadata موجود در cache این اجراست؛ این گزارش ادعای دریافت تمام تغییرات رجیستری در لحظه ندارد.
 
-- پیاده‌سازی: **۷/۷۰ = ۱۰٪**.
-- تست قرارداد با fixture مصنوعی: **۷/۷۰ = ۱۰٪**.
-- تأیید موفق زنده با credential معتبر: **۰/۷۰ = ۰٪**.
+بررسی platform روی runtime واقعی، Pint و PHPStan سطح ۶ برای ترکیب‌ها موفق بود. آرشیوها روی میزبان دارای `ext-zip` بررسی شدند؛ تصویرهای PHP آزمایش محلی افزونه zip نداشتند، بنابراین در چهار اجرای lowest روی Docker اجزای validation/lint/analyse/test جداگانه اجرا شدند. workflow این افزونه را نصب و `composer check` کامل را اجرا می‌کند. GitHub-hosted CI پس از push این تغییرات باید جداگانه اجرا شود.
 
-این درصدها فقط به inventory فعلی مربوط‌اند. schema مدل‌های nested و تمام حالت‌های هر API هنوز کامل نیستند. endpoint، limit و متد مجهول به‌عنوان قابلیت آماده معرفی نشده‌اند. در روبیکا `offset_id` از جدول متد انتخاب شده و cursor رشته‌ای حفظ می‌شود؛ تعارض با `start_id` و شکل getMe همچنان نیازمند تست زنده است.
+## آزمایش پروژه واقعی Laravel
 
-تنها probe شبکه‌ای API در این مرحله، getMe فقط‌خواندنی روبیکا با توکن عمداً نامعتبر بود که `INVALID_INPUT` برگرداند. این مشاهده، تست موفق عملیات یا حساب واقعی نیست. هیچ پیامی به مقصد واقعی ارسال نشد.
+ابزار `tools/consumer-smoke.php` برنامه واقعی `laravel/laravel` نسخه ۱۲ و ۱۳ را در پوشه موقت ساخته و هر دو پکیج را با نسخه محلی `0.1.0` به‌صورت mirror و `--no-dev` نصب کرد. در Laravel `12.71.0` و `13.40.0` روی PHP `8.5.12` این موارد موفق بود:
 
-## بازبینی جدا پس از پیاده‌سازی
+- package discovery، انتشار config، config cache و route cache؛ resolve کردن facade و اتصال نام‌دار.
+- migration روی SQLite و ارسال اعلان هم‌زمان از مسیر واقعی Laravel Notifications.
+- ثبت اعلان دوم در صف واقعی database، بررسی نبود توکن در payload، و عدم ارسال پیش از worker.
+- اجرای `artisan queue:work --once --tries=1` در **پردازش جدا**، با توکن آزمایشی متفاوت پس از enqueue؛ worker توکن جدید محیط خودش را خواند.
+- بررسی payload دقیق HTTP، دو ارسال مورد انتظار، خالی شدن jobs و نبود failed job.
+- نصب PHP مستقل بدون Illuminate، PHPUnit و Testbench و بررسی autoload و قرارداد SDK.
 
-در بازخوانی مسیرهای دریافت، ارسال، secret و نصب، این موارد اصلاح و با تست مرتبط بررسی شدند:
+این آزمایش‌ها در این نوبت چند بار روی برنامه‌های تازه تکرار شدند. HTTP پیام‌رسان با transport اسکریپت‌شده جایگزین شد؛ framework، container، cache، migration، serialization و worker واقعی بودند. هیچ پیام واقعی به کاربر پیام‌رسان ارسال نشد. پوشه آخرین پروژه‌ها و logها در گزارش JSON ثبت شده‌اند؛ این مسیرها موقت‌اند و جزو وابستگی پکیج نیستند.
 
-- تمایز `{}` از `[]` برای جلوگیری از پذیرش object نامعتبر به‌عنوان batch خالی.
-- جلوگیری از عقب رفتن cursor با دریافت batch قدیمی یا خارج از ترتیب.
-- رد receipt بله با chat نامرتبط، با حفظ امکان resolve شدن alias کانال.
-- حفظ وضعیت مبهم ارسال هنگام قطع پاسخ، خرابی body و شکست logger؛ بدون retry خودکار.
-- عدم نمایش credential در `var_dump` و `var_export` و جلوگیری از serialize شدن آن.
-- حفظ fencing پس از release و رد writer قدیمی حتی اگر دیرتر lease را آزاد کند.
-- محدود کردن تشخیص event بله به فیلدهای مستند؛ فیلد ناشناخته همچنان در raw حفظ می‌شود.
+## بررسی انتشار و بسته‌بندی
 
-این بازبینی، بازبینی امنیتی مستقل یا پذیرش نهایی انتشار نیست. نیاز به بازبین مستقل در gate انتشار باقی است.
+- `composer validate --strict` برای هر دو manifest، syntax فایل‌های PHP، اعتبار JSON و لینک‌های محلی مستندات موفق بود.
+- `composer test:archive` آرشیو SDK با ۶۰ فایل و Laravel با ۱۳ فایل را بررسی کرد؛ vendor، cache، فایل محیطی و bridge لاراول در آرشیو مستقل SDK وجود ندارند.
+- Actionlint برای `ci.yml` و `release.yml` موفق بود.
+- `php tools/release-preflight.php v0.1.0` از ابتدا با موفقیت هر دو پکیج را در نسخه `0.1.0` نصب و سازگاری وابستگی پایدار را تأیید کرد.
+- در مخزن‌های موقت محلی، subtree اولیه Laravel، push اتمیک branch/tag، اجرای دوباره همان انتشار و fast-forward نسخه بعدی موفق بود.
+- مخزن اصلی GitHub عمومی است. تغییرات این بررسی push نشده‌اند و workflow انتشار روی GitHub اجرا نشده است. برای ثبت اولیه Packagist و تنظیم repository/variable/secretها، [راهنمای انتشار](releasing.md) ترتیب دقیق bootstrap و تنظیمات را توضیح می‌دهد.
 
-## کار بعدی قابل اجرا
+دسترسی این محیط به endpointهای Packagist timeout شد. resolve وابستگی‌ها با metadata موجود در cache و دریافت archiveهای لازم از GitHub انجام شد. بنابراین **نتیجه تازه و آنلاین `composer audit` در این اجرا به دست نیامد**؛ پیام نبود advisory در update آفلاین، جایگزین audit تازه نیست. CI آنلاین audit را پیش از انتشار الزام می‌کند. API واقعی Packagist بدون credential انتشار فراخوانی نشده است.
 
-ابتدا schema عملیات pending و مدل‌های nested را تکمیل و wrapperهای رسمی باقی‌مانده را با contract مستقل اضافه کنید. سپس مدیریت webhook و ingress پایدار، dispatcher/outbox و runtime قابل توقف را بسازید. پژوهش حساب شخصی و Mini App باید مستقل و طبق مراحل سند ادامه یابد؛ این نیازها حذف نشده‌اند.
+## پوشش و مرز قابلیت‌ها
 
-برای بستن live acceptance، credentialهای بات/برنامه در secret store یا محیط واقعی پردازش، و مقصدهای آزمایشی مجاز لازم است. برای حساب شخصی نیز حساب تحت اختیار مالک و ورود تعاملی لازم خواهد بود. نبود این موارد مانع unit/integration نیست، ولی تأیید live را متوقف می‌کند. جزئیات همه gapها در `research/open-questions.md` آمده است.
+line coverage با Xdebug برای sourceهای SDK و Laravel، شامل helper تست: **۳۸۸ از ۴۴۲ statement = ۸۷٫۷۸٪**. branch coverage اندازه‌گیری نشده است. این عدد اثبات نبود باگ یا تحقق هدف جداگانه پوشش core نیست.
+
+inventory فعلی، فهرست جزئی ۷۰ عملیات است: **۷ عملیات پیاده‌سازی و با fixture مصنوعی تست شده، صفر عملیات تأییدشده با توکن معتبر زنده**. دامنه آماده فعلی عبارت است از هویت/متن/آپدیت بات بله و روبیکا، ارسال متن برنامه ایتا و جمع‌آوری پایدار batch بله. APIهای بیشتر، رسانه، webhook، dispatcher/outbox، حساب شخصی، Mini App، سفیر و ایتایار هنوز قابلیت آماده این نسخه نیستند؛ جزئیات در [پرسش‌ها و کارهای باز](../research/open-questions.md) است.
+
+آزمون زنده سرویس‌دهنده به credential و مقصد آزمایشی مجاز نیاز دارد. Windows/macOS، branch coverage، mutation و soak بیست‌وچهارساعته هنوز اجرا نشده‌اند. انتشار اولیه نباید به‌عنوان تکمیل کل نقشه راه یا تأیید production تمام سرویس‌دهنده‌ها معرفی شود.
 
 ## بازتولید
+
+برای checkout معمولی، PHP 8.3–8.5، Composer 2 و افزونه‌های توسعه `mbstring`، `pdo_sqlite` و `zip` لازم‌اند:
 
 ```sh
 composer install
 composer check
+composer test:repeat
+composer test:consumer
 composer validate --strict packages/laravel/composer.json
 composer audit
-php tools/consumer-smoke.php php
-php tools/consumer-smoke.php 12
-php tools/consumer-smoke.php 13
+php tools/release-preflight.php v0.1.0
 XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-text
 ```
 
-اسکریپت consumer پروژه‌های موقت را در مسیر temp سیستم نگه می‌دارد تا قابل بازبینی باشند. به Composer/network برای دریافت dependency نیاز دارد؛ از credential واقعی یا API ارسال استفاده نمی‌کند. آزمون suite کامل Laravel 12 نیازمند resolve کردن `orchestra/testbench:^10.0` در checkout جداست؛ checkout اصلی با Testbench 11 و Laravel 13 قفل شده است.
+برای matrix در checkout مستقل، ابتدا `composer config --unset platform.php` را اجرا کنید؛ برای Laravel 12 از Testbench `^10.0` و برای Laravel 13 از `^11.0` استفاده کنید و سپس `composer update` یا `composer update --prefer-lowest --prefer-stable` را روی PHP هدف اجرا کنید. workflow همین انتخاب را انجام می‌دهد. در محیط بدون دسترسی به رجیستری، `COMPOSER_DISABLE_NETWORK=1` فقط با cache کامل قابل استفاده است و audit تازه فراهم نمی‌کند.

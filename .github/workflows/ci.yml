@@ -1,10 +1,19 @@
 name: CI
-on: [push, pull_request, workflow_dispatch]
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+  workflow_dispatch:
+  workflow_call:
+
 permissions:
   contents: read
 jobs:
   test:
+    name: PHP ${{ matrix.php }} / Laravel ${{ matrix.laravel }} / ${{ matrix.dependencies }}
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     strategy:
       fail-fast: false
       matrix:
@@ -16,11 +25,12 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: mbstring, pdo_sqlite
+          extensions: mbstring, pdo_sqlite, zip
           tools: composer:v2
           coverage: none
       - name: Select framework test harness
         run: |
+          composer config --unset platform.php
           if [ "${{ matrix.laravel }}" = "12" ]; then
             composer require --dev orchestra/testbench:^10.0 --no-update --no-interaction
           else
@@ -34,10 +44,13 @@ jobs:
             composer update --no-interaction --prefer-dist --no-progress
           fi
       - run: composer check
+      - run: composer test:repeat
       - run: composer validate --strict packages/laravel/composer.json
       - run: composer audit
   consumers:
+    name: Consumer ${{ matrix.target }}
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     strategy:
       fail-fast: false
       matrix:
@@ -47,7 +60,7 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: '8.5'
-          extensions: mbstring, pdo_sqlite
+          extensions: mbstring, pdo_sqlite, zip
           tools: composer:v2
           coverage: none
       - run: php tools/consumer-smoke.php ${{ matrix.target }}

@@ -1,0 +1,86 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    uses: ./.github/workflows/ci.yml
+
+  publish:
+    name: Publish verified tag
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    env:
+      LARAVEL_SPLIT_REPOSITORY: ${{ vars.LARAVEL_SPLIT_REPOSITORY }}
+      LARAVEL_SPLIT_TOKEN: ${{ secrets.LARAVEL_SPLIT_TOKEN }}
+      PACKAGIST_USERNAME: ${{ vars.PACKAGIST_USERNAME }}
+      PACKAGIST_API_TOKEN: ${{ secrets.PACKAGIST_API_TOKEN }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          extensions: mbstring, pdo_sqlite
+          tools: composer:v2
+          coverage: none
+      - name: Verify tag, branch and release configuration
+        shell: bash
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          [[ "$RELEASE_TAG" =~ ^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]] || { echo 'Release tag must be vMAJOR.MINOR.PATCH.' >&2; exit 1; }
+          [[ "$(git rev-parse HEAD)" = "$GITHUB_SHA" ]] || { echo 'Checkout SHA differs from tag event.' >&2; exit 1; }
+          git fetch origin main
+          git merge-base --is-ancestor "$GITHUB_SHA" origin/main || { echo 'Release tag must point to a commit on main.' >&2; exit 1; }
+          [[ "$LARAVEL_SPLIT_REPOSITORY" =~ ^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$ ]] || { echo 'Set LARAVEL_SPLIT_REPOSITORY to owner/repo.' >&2; exit 1; }
+          [[ -n "$LARAVEL_SPLIT_TOKEN" && -n "$PACKAGIST_USERNAME" && -n "$PACKAGIST_API_TOKEN" ]] || { echo 'Release credentials are missing.' >&2; exit 1; }
+      - run: composer validate --strict
+      - run: composer validate --strict packages/laravel/composer.json
+      - name: Verify stable version dependency
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: php tools/release-preflight.php "$RELEASE_TAG"
+      - name: Publish Laravel subtree and matching tag
+        shell: bash
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          split_sha="$(git subtree split --prefix=packages/laravel "$GITHUB_SHA")"
+          [[ -n "$split_sha" ]] || { echo 'Laravel split produced no commit.' >&2; exit 1; }
+          git tag -f "$RELEASE_TAG" "$split_sha"
+          export GIT_CONFIG_COUNT=1
+          export GIT_CONFIG_KEY_0='http.https://github.com/.extraheader'
+          export GIT_CONFIG_VALUE_0="AUTHORIZATION: basic $(printf 'x-access-token:%s' "$LARAVEL_SPLIT_TOKEN" | base64 -w0)"
+          git push --atomic "https://github.com/$LARAVEL_SPLIT_REPOSITORY.git" "$split_sha:refs/heads/main" "refs/tags/$RELEASE_TAG:refs/tags/$RELEASE_TAG"
+      - name: Request Packagist updates
+        run: php tools/packagist-update.php
+      - name: Publish GitHub release notes
+        shell: bash
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          if gh release view "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo 'GitHub release already exists.'
+          else
+            gh release create "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" --verify-tag --generate-notes --title "$RELEASE_TAG"
+          fi

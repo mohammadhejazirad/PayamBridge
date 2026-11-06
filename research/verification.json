@@ -1,75 +1,424 @@
 {
-  "run_id": "local-20261106-initial",
-  "build_sha256": "b3e5e600294ce4f6cab19f0cb7aed93e2d806e3d1e83502791217afb20d5f596",
-  "environment": {
-    "php": "8.5.12",
-    "os": "Linux",
-    "laravel": "v13.40.0",
-    "testbench": "v11.3.0",
-    "phpunit": "12.5.43"
+  "schema_version": 2,
+  "run_id": "local-20261106-release-readiness",
+  "date": "2026-11-06",
+  "base_git_commit": "526247f0fa108c4a35a61d5a37430e60ce7d3e09",
+  "worktree_changes_not_pushed": true,
+  "runtime_source_sha256": "71600737afde23f06cc7202f10d6fe0a05b7b90f9dd29fa87e90fd2646e71c20",
+  "runtime_source_files": {
+    "packages/laravel/config/payambridge.php": "e4eb9dc53c23ff7b61de28c43bb8b651d5a081b315c569bb364be3580747dcef",
+    "packages/laravel/src/Commands/CapabilitiesCommand.php": "53aba1282e727d843af8fefd19aa0676a79ab386f2d52a191f9b22eea412f1f0",
+    "packages/laravel/src/ConnectionManager.php": "39723c3ca1458e0d286553dad4dd4427a8ca07f53af85a727fb5a1c1d6a54006",
+    "packages/laravel/src/CredentialResolver.php": "60b9a96c6274466242f5bed71320eb8f3c43330760f66fa4fc76baa064bce061",
+    "packages/laravel/src/EnvironmentCredentialResolver.php": "0134f631ed1986224d1b60c14f44a54e0ef7328fa0c8b754cee29b5097c9c3d7",
+    "packages/laravel/src/Facades/PayamBridge.php": "3c67062ddeb8c245510ba2fd2454fbcb413a00884c4bca514e38e47845ed9d4b",
+    "packages/laravel/src/Notifications/NotificationRoute.php": "5999706fe8006832e8b2c17744e92de53f3dbdc87dbe81da86e99ade5cc204c1",
+    "packages/laravel/src/Notifications/PayamBridgeChannel.php": "a02e6a12568052f051e80e72af6b7ce89658eeaae20913148f37329d4e9f8c96",
+    "packages/laravel/src/Notifications/TextMessage.php": "6f0f8fec038c1a05be2b0c07c65c0c2c91c18db9973389e771eb71a3aaaf1a70",
+    "packages/laravel/src/PayamBridgeServiceProvider.php": "da70588d4e0b5ad416630ecb161d268aec3c3b7cd80439c145c533813fecd585",
+    "src/ConnectionFactory.php": "a20df2197e00a7b3c35e399e2afa3892f645c2ac8cac31b6c1da7016435f7a50",
+    "src/Contracts/Capability.php": "d3b7b24f3a4fa116501fa6b60043c93df0a8a04ea69c29620e82cffadc99ee03",
+    "src/Contracts/Connection.php": "090fd7c71ef99187aeeb47cae3d5f040061d7494b73b126120e181087920737b",
+    "src/Contracts/GetsIdentity.php": "e780bf9a65e1d4e6be4f9475d5569344d325ab44e25243333d105443928d6450",
+    "src/Contracts/Provider.php": "7286edd21ea6b2a02b230449ed26422290f8efa11fda061524b0ec898bc744d3",
+    "src/Contracts/ReceivesUpdates.php": "f320736443bb79923d36dec6dadd2d314cc4fc3678292ba4d47f127a5ccbf0b8",
+    "src/Contracts/SendsText.php": "1b18040c3224406a347082d1e33f61ad9bb160897c2531854ba6c5d7027147e6",
+    "src/Contracts/Surface.php": "cae653a1181ebceb783a89cb7e62e8210685b13b79250415e1e6e0e63bdfeaf7",
+    "src/Data/BotIdentity.php": "057b5b9d30727907fae61711f36857bdff1cf01e2edeb542f50a23f3aa22dfca",
+    "src/Data/CapabilitySet.php": "b2428e005c732e981bf7cf7ddbd416ba3a74f7adee34b8ea6a0760246d3d64a5",
+    "src/Data/ChatRef.php": "ad235ee0c6ee848603d561deca18523f648aacc9552167765a15c0514fad0673",
+    "src/Data/ConnectionId.php": "c74129a331d876e53d73b200e47e9e40493fd55497e4e8574a2b4a4f0956cced",
+    "src/Data/IncomingEvent.php": "56bdd915a628afe342698dcd88316367abe4a237f230754a286171232ce07609",
+    "src/Data/MessageReceipt.php": "77a39b70b1eec07df7918af63c429b917913c9f6f6790cb12fd130263c033c1b",
+    "src/Data/MessageRef.php": "141d55960aaa4bbef99c55bb9095ec3323238f667cbe2a690f2ae7722074b942",
+    "src/Data/UpdateBatch.php": "ee70034d133f717bb7a7b326e4466c6a10b7bf3ad4752615c7160f9fdede4cfa",
+    "src/Drivers/Bale/BaleBot.php": "bb7611ee07cc3a9673b499574e06103783e086fa826ae714a0a4c14979fa77bb",
+    "src/Drivers/Eitaa/EitaaApp.php": "d71ad005e08286c76c2eadbd00cc439e474aca22d3d430d1fa62900c1870a6f0",
+    "src/Drivers/NativeClient.php": "44575bf1ef896e13bc1549c68a41d95d39020aa3240b5d715460066b2a917fd7",
+    "src/Drivers/Rubika/RubikaBot.php": "fcb6630e01cd414ea6f8805454f65e78d5aa916c3225989b05e6e3ab69813cab",
+    "src/Exceptions/AmbiguousDeliveryException.php": "25987b4e4288c6738ee16ccfc995094775d8eac8e214e03818cb19b0508d5e32",
+    "src/Exceptions/ErrorKind.php": "21e176d417c337407ac5737ba642a1ad66eee51fbbead1ca9c5e222260909519",
+    "src/Exceptions/SdkException.php": "b71b2c60a6cdc809a68a5683587e71c648e32a10b93520236fd7d20368c4e250",
+    "src/Exceptions/UnsupportedCapabilityException.php": "d360576b8cc1207668b296aebd1bf937cf1114c91c28e8e327fd7bf1fd53865b",
+    "src/Http/HttpTransport.php": "48f3323699c06b212e20744851afd6390aadb172afbefd26e8cfed68a30069a8",
+    "src/Http/JsonResponse.php": "ee78fd73b8de837aa21dccee56f9aefa39930a6fc89fe041ff514a26444c8570",
+    "src/Http/OperationContext.php": "e97101af8d9d4d30d167269bf90e34b21a186ef22a6557ddaeb207edcd3bbd22",
+    "src/Http/Timeouts.php": "ab2723cd05d5661a5423aa5a5100a58f1e622be52977083491f4eac6c07088a6",
+    "src/Runtime/InboxStore.php": "dece84961223c40f020303b21d7e44e06dda3a6765af0f1527c9ad409a6b785c",
+    "src/Runtime/Lease.php": "e3f091a1d5df686598f1b1527e4d1461de5c3905d9cbee9fd1827d96e8b85765",
+    "src/Runtime/LeaseLostException.php": "5e1d5d513160dc53872a0ecc2bf945057e7cfa3fbdb3418f2acd97638bf0f61f",
+    "src/Runtime/LeaseUnavailableException.php": "e202c7868f5314cdd1c3daa5f60f5ff042861d11937237acbd6dbdb8198be72b",
+    "src/Runtime/Poller.php": "61c928fc8169e0aafffc9d3c2c289521d9b2d1a8589ea771bab52fafcd3fd54e",
+    "src/Runtime/SqliteInboxStore.php": "648853a7063c1e7d259fab79e2ebce0a7819aa282234c5d0dceae8464c8ffcac",
+    "src/Security/Credential.php": "c23c222ccd57bbc48df3cdcfae494d2449af76cbc878ed91092e57f5cfa6ecc0",
+    "src/Support/Wire.php": "121bc66fcb602996601eb06071de61e25ae4a605eec81ea266ddf10f1648e269",
+    "src/Testing/FakeHttpClient.php": "3d822db46a26ee5467cf2fce234f6a0b780df5bf9219f468b2cac3c0b4757bfa",
+    "tests/Contract/OfficialDriversTest.php": "5ad5bcb82bcfd2e1fa7534ec3b8167e67cd3bc8769dca468838f2e54bfd5cfc9",
+    "tests/Fixtures/bale-me.json": "f40c9312289761c4983752e6932710a0afb5d2beb5f986b0336a738a19785250",
+    "tests/Fixtures/bale-send.json": "929f641dc47761f5c00b872161c93d267fb0ca7a734b40c7fbb6f3ffffbf9d9c",
+    "tests/Fixtures/bale-updates.json": "bf761a7efc5e3d2023620a3249ea4ce2b03fd58e1b93770524a472d2d93bedbe",
+    "tests/Fixtures/eitaa-app-send.json": "e9ea7054bb6e8191003b0a5b38b47900bb07621ea5765a118b365a747b878650",
+    "tests/Fixtures/rubika-me.json": "5b2d40a05f9fd443958b97a1eefb58952a8d4b498c1eda4a5cc7efe0ed0b0f40",
+    "tests/Fixtures/rubika-send.json": "0ff61a02d0f25f295def3b1f5afa1c9be9224a700ee213f41ca7e1d92e58b20d",
+    "tests/Fixtures/rubika-updates.json": "541628bd89c25549c7f8afd6a2f279eefd881920f73fec2b3871aa475b479f43",
+    "tests/Integration/SqliteInboxTest.php": "0233d1ab0b6fa78e1c16f48840420cb12b502180640757207f937979dd7980b0",
+    "tests/Laravel/BridgeTest.php": "75d2e7eb9dabbccb7f9c4722ebc30901b5077618e691ce543af4b688d2a4a58a",
+    "tests/Unit/CoreTest.php": "80a09714ffa5c45c1b4be2be672d57a67e289cfe06ad94fbac204b74d638ff11",
+    "tests/Unit/HttpTransportTest.php": "547fd5911f51220637486395de3c81697e9e8e8c0b1e653c0f788c68227a8f6a"
   },
-  "consecutive_full_suite_runs": [
+  "configuration_sha256": "0068fdcaf76e941ce25794235dd6038370af4cbf34e8b7fd65dbeff83b52ee3a",
+  "configuration_files": {
+    ".gitattributes": "3704b8c8ac7041aba5e97d89a3f32855a7ba063d9230e9cf2ee445223c65d5b5",
+    ".github/workflows/ci.yml": "4e7f60f58a8c1fddb0067211d7d36504c5d6187fd5593bd50f2375489dd54505",
+    ".github/workflows/release.yml": "5bfadab2f7bd2335818d20fcbbea79def942f796d8ce54ba10a9a7b20860dc74",
+    "composer.json": "9403501d6ab653f98eac5492b4f5cf09a720a493b0ba160a605d0e36128e73ea",
+    "composer.lock": "31d1e2f854b1aa2f6e93ddd32dca1dbbd0ef5fd1bd17897a8f3ff3435b0d2b48",
+    "packages/laravel/composer.json": "e6cef956159a2074ab7cb968d3e465f5569ae68996379abd0c5f6d4de48fa941",
+    "tools/archive-check.php": "ac6d33ad1affb10dd75b8d26dfb007326aade7b3f36183edb96e1d18ccb5e926",
+    "tools/consumer/SmokeNotification.php": "642cbb5974279728907a758ee8056032722939621ee3bb3dbb5800fb755bf61d",
+    "tools/consumer/SmokeProvider.php": "98c84cdd63b6dbb1bc9acd197fe090041d7d62810b66ea7b9ac5d839a5e6e211",
+    "tools/consumer/laravel.php": "bcbae886d1c8a9a7de46cb5f0aecacf3c0714fb09293cf6d8ec78829cafc2773",
+    "tools/consumer-smoke.php": "3602c4bc6ba6f826af0d972013e9ad04034a59a23b5f9deadf7cdd2d09d08d11",
+    "tools/inventory.php": "c66593f93f12b235054873caeeab79005157aaeff264b434aee63fd8df3154a0",
+    "tools/packagist-update.php": "5246bfe32ca4d887bbb2bb73f290be2e6e047b8ce97d53e7d2742d1df03ac640",
+    "tools/release-preflight.php": "60314efd63d1542ec8d8ffc3438d39ec480bec950aefd1fe59fd0d2dd7ba2e91"
+  },
+  "environment": {
+    "os": "Linux",
+    "php_runtimes": [
+      "8.3.36 (Docker official PHP CLI)",
+      "8.4.27 (Docker official PHP CLI)",
+      "8.5.12 (host)"
+    ]
+  },
+  "matrix": [
     {
-      "run": 1,
-      "exit_code": 0,
-      "tests": 97,
-      "assertions": 230,
-      "restart_and_fault_cases": "tests/Integration/SqliteInboxTest.php"
+      "php": "8.3.36",
+      "laravel_major": "12",
+      "dependencies": "latest",
+      "versions": {
+        "laravel/framework": "v12.71.0",
+        "orchestra/testbench": "v10.12.0",
+        "phpunit/phpunit": "12.5.43",
+        "phpstan/phpstan": "2.3.5",
+        "laravel/pint": "v1.32.1"
+      },
+      "suite_runs": 4,
+      "tests_each": 102,
+      "assertions_each": 243,
+      "status": "passed",
+      "runtime_source_sha256": "71600737afde23f06cc7202f10d6fe0a05b7b90f9dd29fa87e90fd2646e71c20",
+      "log_files": [
+        "/tmp/payambridge-php-runtime-matrix/php8.3-laravel12-check.log"
+      ]
     },
     {
-      "run": 2,
-      "exit_code": 0,
-      "tests": 97,
-      "assertions": 230,
-      "restart_and_fault_cases": "tests/Integration/SqliteInboxTest.php"
+      "php": "8.3.36",
+      "laravel_major": "12",
+      "dependencies": "lowest",
+      "versions": {
+        "laravel/framework": "v12.69.0",
+        "orchestra/testbench": "v10.2.0",
+        "phpunit/phpunit": "12.5.8",
+        "phpstan/phpstan": "2.1.0",
+        "laravel/pint": "v1.20.0"
+      },
+      "suite_runs": 4,
+      "tests_each": 102,
+      "assertions_each": 243,
+      "status": "passed",
+      "runtime_source_sha256": "71600737afde23f06cc7202f10d6fe0a05b7b90f9dd29fa87e90fd2646e71c20",
+      "log_files": [
+        "/tmp/payambridge-php-legacy-lowest/php8.3-laravel12-lowest-phpunit.log",
+        "/tmp/payambridge-php-legacy-lowest/php8.3-laravel12-lowest-repeat.log"
+      ]
     },
     {
-      "run": 3,
-      "exit_code": 0,
-      "tests": 97,
-      "assertions": 230,
-      "restart_and_fault_cases": "tests/Integration/SqliteInboxTest.php"
+      "php": "8.3.36",
+      "laravel_major": "13",
+      "dependencies": "latest",
+      "versions": {
+        "laravel/framework": "v13.40.0",
+        "orchestra/testbench": "v11.3.0",
+        "phpunit/phpunit": "12.5.43",
+        "phpstan/phpstan": "2.3.5",
+        "laravel/pint": "v1.32.1"
+      },
+      "suite_runs": 4,
+      "tests_each": 102,
+      "assertions_each": 243,
+      "status": "passed",
+      "runtime_source_sha256": "71600737afde23f06cc7202f10d6fe0a05b7b90f9dd29fa87e90fd2646e71c20",
+      "log_files": [
+        "/tmp/payambridge-php-runtime-matrix/php8.3-laravel13-check.log"
+      ]
+    },
+    {
+      "php": "8.3.36",
+      "laravel_major": "13",
+      "dependencies": "lowest",
+      "versions": {
+        "laravel/framework": "v13.30.0",
+        "orchestra/testbench": "v11.0.0",
+        "phpunit/phpunit": "12.5.8",
+        "phpstan/phpstan": "2.1.0",
+        "laravel/pint": "v1.20.0"
+      },
+      "suite_runs": 4,
+      "tests_each": 102,
+      "assertions_each": 243,
+      "status": "passed",
+      "runtime_source_sha256": "71600737afde23f06cc7202f10d6fe0a05b7b90f9dd29fa87e90fd2646e71c20",
+      "log_files": [
+        "/tmp/payambridge-php-legacy-lowest/php8.3-laravel13-lowest-phpunit.log",
+        "/tmp/payambridge-php-legacy-lowest/php8.3-laravel13-lowest-repeat.log"
+      ]
+    },
+    {
+      "php": "8.4.27",
+      "laravel_major": "12",
+      "dependencies": "latest",
+      "versions": {
+        "laravel/framework": "v12.71.0",
+        "orchestra/testbench": "v10.12.0",
+        "phpunit/phpunit": "12.5.43",
+        "phpstan/phpstan": "2.3.5",
+        "laravel/pint": "v1.32.1"
+      },
+      "suite_runs": 4,
+      "tests_each": 102,
+      "assertions_each": 243,
+      "status": "passed",
+      "runtime_source_sha256": "71600737afde23f06cc7202f10d6fe0a05b7b90f9dd29fa87e90fd2646e71c20",
+      "log_files": [
+        "/tmp/payambridge-php-runtime-matrix/php8.4-laravel12-check.log"
+      ]
+    },
+    {
+      "php": "8.4.27",
+      "laravel_major": "12",
+      "dependencies": "lowest",
+      "versions": {
+        "laravel/framework": "v12.69.0",
+        "orchestra/testbench": "v10.2.0",
+        "phpunit/phpunit": "12.5.8",
+        "phpstan/phpstan": "2.1.0",
+        "laravel/pint": "v1.20.0"
+      },
+      "suite_runs": 4,
+      "tests_each": 102,
+      "assertions_each": 243,
+      "status": "passed",
+      "runtime_source_sha256": "71600737afde23f06cc7202f10d6fe0a05b7b90f9dd29fa87e90fd2646e71c20",
+      "log_files": [
+        "/tmp/payambridge-php-legacy-lowest/php8.4-laravel12-lowest-phpunit.log",
+        "/tmp/payambridge-php-legacy-lowest/php8.4-laravel12-lowest-repeat.log"
+      ]
+    },
+    {
+      "php": "8.4.27",
+      "laravel_major": "13",
+      "dependencies": "latest",
+      "versions": {
+        "laravel/framework": "v13.40.0",
+        "orchestra/testbench": "v11.3.0",
+        "phpunit/phpunit": "12.5.43",
+        "phpstan/phpstan": "2.3.5",
+        "laravel/pint": "v1.32.1"
+      },
+      "suite_runs": 4,
+      "tests_each": 102,
+      "assertions_each": 243,
+      "status": "passed",
+      "runtime_source_sha256": "71600737afde23f06cc7202f10d6fe0a05b7b90f9dd29fa87e90fd2646e71c20",
+      "log_files": [
+        "/tmp/payambridge-php-runtime-matrix/php8.4-laravel13-check.log"
+      ]
+    },
+    {
+      "php": "8.4.27",
+      "laravel_major": "13",
+      "dependencies": "lowest",
+      "versions": {
+        "laravel/framework": "v13.30.0",
+        "orchestra/testbench": "v11.0.0",
+        "phpunit/phpunit": "12.5.8",
+        "phpstan/phpstan": "2.1.0",
+        "laravel/pint": "v1.20.0"
+      },
+      "suite_runs": 4,
+      "tests_each": 102,
+      "assertions_each": 243,
+      "status": "passed",
+      "runtime_source_sha256": "71600737afde23f06cc7202f10d6fe0a05b7b90f9dd29fa87e90fd2646e71c20",
+      "log_files": [
+        "/tmp/payambridge-php-legacy-lowest/php8.4-laravel13-lowest-phpunit.log",
+        "/tmp/payambridge-php-legacy-lowest/php8.4-laravel13-lowest-repeat.log"
+      ]
+    },
+    {
+      "php": "8.5.12",
+      "laravel_major": "12",
+      "dependencies": "latest",
+      "versions": {
+        "laravel/framework": "v12.71.0",
+        "orchestra/testbench": "v10.12.0",
+        "phpunit/phpunit": "12.5.43",
+        "phpstan/phpstan": "2.3.5",
+        "laravel/pint": "v1.32.1"
+      },
+      "suite_runs": 4,
+      "tests_each": 102,
+      "assertions_each": 243,
+      "status": "passed",
+      "runtime_source_sha256": "71600737afde23f06cc7202f10d6fe0a05b7b90f9dd29fa87e90fd2646e71c20",
+      "log_files": [
+        "/tmp/payambridge-php85-matrix/laravel12-latest-check.log",
+        "/tmp/payambridge-php85-matrix/laravel12-latest-test-repeat.log"
+      ]
+    },
+    {
+      "php": "8.5.12",
+      "laravel_major": "12",
+      "dependencies": "lowest",
+      "versions": {
+        "laravel/framework": "v12.69.0",
+        "orchestra/testbench": "v10.2.0",
+        "phpunit/phpunit": "12.5.8",
+        "phpstan/phpstan": "2.1.0",
+        "laravel/pint": "v1.20.0"
+      },
+      "suite_runs": 4,
+      "tests_each": 102,
+      "assertions_each": 243,
+      "status": "passed",
+      "runtime_source_sha256": "71600737afde23f06cc7202f10d6fe0a05b7b90f9dd29fa87e90fd2646e71c20",
+      "log_files": [
+        "/tmp/payambridge-php85-matrix/laravel12-lowest-check.log",
+        "/tmp/payambridge-php85-matrix/laravel12-lowest-test-repeat.log"
+      ]
+    },
+    {
+      "php": "8.5.12",
+      "laravel_major": "13",
+      "dependencies": "latest",
+      "versions": {
+        "laravel/framework": "v13.40.0",
+        "orchestra/testbench": "v11.3.0",
+        "phpunit/phpunit": "12.5.43",
+        "phpstan/phpstan": "2.3.5",
+        "laravel/pint": "v1.32.1"
+      },
+      "suite_runs": 4,
+      "tests_each": 102,
+      "assertions_each": 243,
+      "status": "passed",
+      "runtime_source_sha256": "71600737afde23f06cc7202f10d6fe0a05b7b90f9dd29fa87e90fd2646e71c20",
+      "log_files": [
+        "/tmp/payambridge-php85-matrix/laravel13-latest-check.log",
+        "/tmp/payambridge-php85-matrix/laravel13-latest-repeat.log"
+      ]
+    },
+    {
+      "php": "8.5.12",
+      "laravel_major": "13",
+      "dependencies": "lowest",
+      "versions": {
+        "laravel/framework": "v13.30.0",
+        "orchestra/testbench": "v11.0.0",
+        "phpunit/phpunit": "12.5.8",
+        "phpstan/phpstan": "2.1.0",
+        "laravel/pint": "v1.20.0"
+      },
+      "suite_runs": 4,
+      "tests_each": 102,
+      "assertions_each": 243,
+      "status": "passed",
+      "runtime_source_sha256": "71600737afde23f06cc7202f10d6fe0a05b7b90f9dd29fa87e90fd2646e71c20",
+      "log_files": [
+        "/tmp/payambridge-php85-matrix/laravel13-lowest-check.log",
+        "/tmp/payambridge-php85-matrix/laravel13-lowest-test-repeat.log"
+      ]
     }
   ],
-  "isolated_laravel_12_full_suite": {
-    "laravel": "v12.71.0",
-    "testbench": "v10.12.0",
-    "php": "8.5.12",
-    "tests": 97,
-    "assertions": 230,
-    "status": "passed"
-  },
-  "clean_consumers": {
-    "standalone_php": "passed; no Illuminate or dev dependencies",
-    "laravel_12": "passed; discovery, config cache, route cache, credential references, local capability command, core fake contract",
-    "laravel_13": "passed; discovery, config cache, route cache, credential references, local capability command, core fake contract"
+  "matrix_totals": {
+    "combinations": 12,
+    "full_suite_runs": 48,
+    "tests_per_run": 102,
+    "assertions_per_run": 243
   },
   "checks": {
     "composer_validate": "passed for both manifests",
-    "pint": "passed",
-    "phpstan_level_6": "passed",
-    "composer_audit": "no security vulnerability advisories found",
-    "syntax": "55 PHP files passed",
-    "inventory": "70 operations; implemented 7; contract passed 7; live passed 0"
+    "platform_requirements": "passed on actual runtimes",
+    "pint": "passed including minimum 1.20.0",
+    "phpstan": "passed at level 6 with 2.1.0 and 2.3.5",
+    "syntax_json_local_doc_links": "passed",
+    "distribution_archives": "passed; SDK 60 files, Laravel 13 files; no vendor, caches, environment files, SDK/Laravel distribution overlap",
+    "actionlint": "passed for ci.yml and release.yml",
+    "stable_release_preflight": "v0.1.0 passed; both packages installed at 0.1.0",
+    "subtree_simulation": "passed in isolated local repositories: initial publication, atomic branch/tag push, idempotent rerun, next version fast-forward",
+    "composer_audit": "no fresh online result: Packagist endpoints timed out; offline update output is not fresh security verification"
+  },
+  "clean_consumers": {
+    "standalone_php": {
+      "status": "passed",
+      "path": "/tmp/payambridge-smoke-php-c9c9cbb33b",
+      "checks": [
+        "no Illuminate",
+        "no dev dependencies",
+        "autoload and SDK wire contract"
+      ]
+    },
+    "laravel12": {
+      "status": "passed",
+      "framework": "v12.71.0",
+      "path": "/tmp/payambridge-smoke-12-45bff64ff6"
+    },
+    "laravel13": {
+      "status": "passed",
+      "framework": "v13.40.0",
+      "path": "/tmp/payambridge-smoke-13-d9c9d01f54"
+    },
+    "laravel_checks": [
+      "auto discovery",
+      "config publication",
+      "config cache without token value",
+      "route cache",
+      "SQLite migrations",
+      "facade and named connection",
+      "synchronous notification",
+      "persistent database queue",
+      "separate queue worker process",
+      "credential rotation after enqueue",
+      "no token in queue payload",
+      "exactly two expected synthetic sends",
+      "no failed or remaining jobs"
+    ],
+    "provider_http": "scripted fake; no live provider calls"
   },
   "coverage": {
-    "scope": "All included SDK and Laravel source, including testing helper; no generated source",
-    "statements": 433,
-    "covered_statements": 379,
-    "line_percent": 87.53,
-    "branch": "not measured",
-    "release_target": "not yet met"
+    "scope": "SDK and Laravel source including testing helper",
+    "statements": 442,
+    "covered_statements": 388,
+    "line_percent": 87.78,
+    "branch": "not measured"
   },
-  "live_verified_operations": 0,
+  "operation_inventory": {
+    "current_partial_inventory": 70,
+    "implemented": 7,
+    "synthetic_contract_tested": 7,
+    "live_verified": 0,
+    "complete_product_inventory": false
+  },
+  "network_note": "Composer resolved against cached Packagist metadata; uncached GitHub archives were downloaded using lock files. This does not establish fresh registry advisory status.",
   "pending": [
-    "PHP 8.3 and 8.4 executions",
-    "CI matrix and prefer-lowest runs",
+    "push source changes and execute GitHub-hosted CI",
+    "configure split repository and GitHub variables/secrets",
+    "initially submit both packages to Packagist",
+    "authorized valid-token provider acceptance",
     "Windows/macOS",
-    "valid-token provider acceptance",
-    "WebView",
-    "mutation tests",
-    "24-hour soak",
-    "product-wide inventory completion"
+    "branch coverage, mutation testing and 24-hour soak",
+    "future product scope recorded in research/open-questions.md"
   ],
-  "note": "This records local development checks; it is not a production-readiness or live-provider guarantee."
+  "temporary_logs_note": "Absolute temporary application/log paths identify this local run; they are not files required by consumers and may be cleaned later."
 }

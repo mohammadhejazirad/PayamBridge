@@ -82,7 +82,8 @@ final class SqliteInboxStore implements InboxStore
             }
             // Recheck expiry after persistence; no cursor is committed by a stale worker.
             $this->assertLease($lease);
-            $statement = $this->pdo->prepare('INSERT INTO payambridge_cursors (connection, cursor) VALUES (?, ?) ON CONFLICT(connection) DO UPDATE SET cursor=excluded.cursor');
+            // A batch without a successor cannot erase an already durable cursor.
+            $statement = $this->pdo->prepare('INSERT INTO payambridge_cursors (connection, cursor) VALUES (?, ?) ON CONFLICT(connection) DO UPDATE SET cursor=COALESCE(excluded.cursor, payambridge_cursors.cursor)');
             $statement->execute([$lease->connection->key(), $batch->nextCursor]);
 
             return $inserted;

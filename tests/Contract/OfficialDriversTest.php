@@ -25,6 +25,8 @@ use PayamBridge\Security\Credential;
 use PayamBridge\Testing\FakeHttpClient;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\RequestFactoryInterface;
+use Psr\Http\Message\RequestInterface;
 
 final class OfficialDriversTest extends TestCase
 {
@@ -211,6 +213,29 @@ final class OfficialDriversTest extends TestCase
             $driver->sendText($chat, '');
             self::fail();
         } catch (InvalidArgumentException) {
+            self::assertSame([], $fake->requests());
+        }
+    }
+
+    public function test_request_factory_failure_is_sanitized_before_any_send(): void
+    {
+        $fake = new FakeHttpClient;
+        $id = new ConnectionId(Provider::Bale, Surface::Bot, 'test');
+        $factory = new class implements RequestFactoryInterface
+        {
+            public function createRequest(string $method, $uri): RequestInterface
+            {
+                throw new \RuntimeException('failed to build '.$uri);
+            }
+        };
+        $driver = new BaleBot($id, new Credential('secret-token'), new HttpTransport($fake), $factory);
+        try {
+            $driver->sendText(new ChatRef($id, '123'), 'hello');
+            self::fail();
+        } catch (SdkException $exception) {
+            self::assertSame(ErrorKind::Validation, $exception->kind);
+            self::assertNull($exception->getPrevious());
+            self::assertStringNotContainsString('secret-token', (string) $exception);
             self::assertSame([], $fake->requests());
         }
     }

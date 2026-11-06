@@ -1,41 +1,45 @@
-# Initial API reference
+# API reference (initial supported scope)
 
-All seven operations below have typed wrappers and synthetic source-based contracts. They have **not** passed a valid-token live test. Wire sources and hashes are in `research/api-inventory.json`; remaining operations stay pending. Unknown raw fields are retained. Nested markup/keypad schemas still use native arrays and are not fully validated builders.
+The API below covers implemented operations, not all provider APIs. Contract tests use documented fixtures; a successful request with a valid live credential is not asserted here. Wire sources and unresolved discrepancies are tracked in [research/api-inventory.json](../research/api-inventory.json) and [research/doc-conflicts.md](../research/doc-conflicts.md).
 
-## Shared contracts
+## Common model
 
-`Connection::id()` returns immutable `ConnectionId(provider, surface, name, tenant)`. `capabilities()` reports implemented SDK capabilities, not every capability the provider might have. `SendsText::sendText(ChatRef, string): MessageReceipt` is the common text capability. `GetsIdentity::getMe(): BotIdentity` and `ReceivesUpdates::fetchUpdates(?string): UpdateBatch` are separate contracts. Unsupported capabilities fail before HTTP.
+ConnectionFactory::create(ConnectionId, Credential) selects only bale/bot, rubika/bot, or eitaa/app. ConnectionId(provider, surface, name, tenant) is immutable; name and tenant accept 1–128 ASCII letters, digits, periods, underscores, and hyphens. ChatRef binds a nonempty UTF-8 chat ID to that full scope. A driver rejects a foreign ChatRef before HTTP. The host application must still authorize who can choose a connection.
 
-`MessageReceipt` contains the resolved chat, optional message reference and raw response. EitaaApp returns no provider message ID, so `message` is null. `IncomingEvent` contains connection, nullable stable event ID, kind, optional chat/message/text and original raw fields. Unknown kinds remain available; Rubika preserves its original type string. Each `UpdateBatch` has events and nullable nextCursor.
+Connection::id() and capabilities() expose the scoped identity and implemented CapabilitySet. Separate interfaces are SendsText::sendText(ChatRef, string): MessageReceipt, GetsIdentity::getMe(): BotIdentity, and ReceivesUpdates::fetchUpdates(?string): UpdateBatch. Supported capability values are sends_text, gets_identity, receives_updates, and durable_polling; only Bale has durable_polling. Use supports() or require() to check a capability.
+
+MessageReceipt has chat, nullable MessageRef, and sensitive raw response. BotIdentity has connection, ID, optional name/username, and raw model. UpdateBatch has events and nullable nextCursor. IncomingEvent has connection, nullable stable ID, kind, optional chat/message/text, and raw fields. Unknown fields and event kinds remain in raw. Eitaa App's MessageReceipt::message is null because the documented response has no message ID.
 
 ## Bale Bot
 
-Origin: `https://tapi.bale.ai/bot{token}/{method}`. Token goes only to this fixed origin. HTTP POST with JSON; empty input is `{}`.
+Endpoint: https://tapi.bale.ai/bot{token}/{method}. JSON POST to this fixed origin.
 
-- `getMe(): BotIdentity`: no parameters. Returns User ID, optional name/username and raw User. No write; no retries.
-- `sendMessage(ChatRef $chat, string $text, ?string $replyToMessageId = null, ?array $replyMarkup = null): MessageReceipt`: requires a scoped chat and nonempty UTF-8 text, documented maximum 4096 characters (local validation counts Unicode code points; exact upstream unit still needs verification). Optional reply ID is range-checked to a wire integer; markup remains native Bale JSON. Null optional arguments are omitted, zero is preserved. Requires destination permission. Side effect: sends a message. No retries; missing/malformed successful receipt yields `delivery_unknown`.
-- `getUpdates(?string $offset = null, int $limit = 100, ?int $timeout = null): UpdateBatch`: limit 1–100, numeric offset range checked, timeout nonnegative seconds when specified. Next offset is maximum returned update_id + 1, independently of ordering. Empty batches retain the prior cursor. **Calling with an advanced offset acknowledges prior updates on the server.** Persist before advancing; `Poller` handles this locally. No automatic retries. Set transport read/total timeouts longer than requested long-polling timeout. Negative offsets are exposed only by this native method and can discard earlier updates; the automatic collector does not invent one.
+- getMe(): BotIdentity. Requires a provider user ID; name and username are optional.
+- sendMessage(ChatRef $chat, string $text, ?string $replyToMessageId = null, ?array $replyMarkup = null): MessageReceipt. Nonempty UTF-8 text, locally limited to 4096 Unicode code points. reply ID must fit a wire integer. Native Bale markup is passed as an array. Explicit zero and non-null optional arguments remain in the payload. A @channel destination may resolve to a numeric chat ID in the receipt. This sends a message and is not retried automatically.
+- getUpdates(?string $offset = null, int $limit = 100, ?int $timeout = null): UpdateBatch. limit 1–100; offset is a wire integer; timeout is nonnegative seconds. nextCursor is the greatest update_id plus one, regardless of order. An empty batch retains the prior cursor. Passing a newer offset acknowledges earlier updates at the provider. Negative offsets can discard earlier updates; the Poller does not invent one.
+- sendText is the shared simple-send alias. fetchUpdates calls getUpdates without a long-poll timeout. For native long polling, set read/total transport timeouts longer than the requested provider timeout.
 
-`sendText` aliases the simple native send; `fetchUpdates` performs periodic polling with no long timeout argument. Do not run concurrent polling and a webhook without an explicit future management workflow.
+Bale can be collected with Poller and SqliteInboxStore. Poller::once acquires a lease, fetches one batch, and atomically stores its events and cursor. SqliteInboxStore::initialize explicitly creates its tables; events(ConnectionId, limit) reads stored raw JSON rows, with limit 1–1000. Stable IDs deduplicate rows. This is collection, not business-event dispatch. Do not run webhook and polling concurrently without an explicit provider-management workflow.
 
 ## Rubika Bot
 
-Origin: `https://botapi.rubika.ir/v3/{token}/{method}`. JSON POST. The status/data envelope has supplemental reference evidence; DOC-09/10 remain open for live confirmation.
+Endpoint: https://botapi.rubika.ir/v3/{token}/{method}. JSON POST to this fixed origin. Official method and reference-client response shapes conflict in some places; see the research discrepancies.
 
-- `getMe(): BotIdentity`: accepts documented `data.bot` and the inspected reference client's direct bot `data` shape. Requires bot_id; optional title/username preserved.
-- `sendMessage(ChatRef $chat, string $text, ?bool $disableNotification = null, ?string $replyToMessageId = null, ?array $inlineKeypad = null, ?array $chatKeypad = null, ?string $chatKeypadType = null): MessageReceipt`: requires scoped chat and nonempty UTF-8 text. Native keypads remain Rubika objects. Explicit false, string `"0"` and empty nested rows are not filtered out. Keypad type, when specified, is `New` or `Remove`. No undocumented maximum text length or Telegram markup is imposed. Side effect: sends a message; no retry.
-- `getUpdates(?string $offsetId = null, int $limit = 10): UpdateBatch`: sends `offset_id`, reads `next_offset_id` as an opaque string, following S14 instead of S13's conflicting start_id. SDK default limit 10 follows R1; official default/upper bound are unknown. No timeout parameter is invented. Incoming event IDs remain null because the official Update model has no stable event ID. Native fetching works, but the durable Poller is deliberately unsupported pending DOC-11.
+- getMe(): BotIdentity. Accepts documented data.bot and reference-client direct data shapes; bot_id is required.
+- sendMessage(ChatRef $chat, string $text, ?bool $disableNotification = null, ?string $replyToMessageId = null, ?array $inlineKeypad = null, ?array $chatKeypad = null, ?string $chatKeypadType = null): MessageReceipt. Text must be nonempty UTF-8. Native keypad arrays are forwarded; chatKeypadType accepts New or Remove. Explicit false, string zero, and empty nested rows are retained. No undocumented text maximum or Telegram markup is imposed. This sends a message without automatic retry.
+- getUpdates(?string $offsetId = null, int $limit = 10): UpdateBatch. limit must be positive; no undocumented upper bound is imposed. The opaque next_offset_id is preserved as a string. Event kind is the original type; event ID is null because the documented Update lacks a stable ID. No timeout parameter is invented.
+- sendText and fetchUpdates are the shared aliases. Durable Poller use throws UnsupportedCapabilityException until a stable event identity is verified.
 
-Unknown status strings are provider errors, without guessed retry or authorization semantics. A known uppercase status may be available as providerCode; provider descriptions and payloads are not exposed in exception messages.
+Unknown non-OK provider status is classified as a provider error. A safe uppercase status may appear as providerCode; error descriptions and payloads are omitted from exception text.
 
 ## Eitaa App
 
-Endpoint: `https://eitaayar.ir/api/app/sendMessage`. Separate identity and driver from EitaaYar channel publication.
+Endpoint: https://eitaayar.ir/api/app/sendMessage. This identity differs from EitaaYar channel publishing.
 
-`sendMessage(ChatRef $chat, string $text): MessageReceipt` sends app token, positive range-checked integer chat_id, and nonempty UTF-8 text. User must have granted permission. Only documented `{"ok":true,"result":"success"}` is accepted; no message ID is invented. This is a write and is never automatically retried. `sendText` is the shared alias. No getMe, getUpdates, channel-file API or personal-account API is exposed.
+sendMessage(ChatRef $chat, string $text): MessageReceipt sends the app token, a positive integer chat_id, and nonempty UTF-8 text. The recipient must have granted permission. Only the documented ok=true and result=success response is accepted. The receipt has no fabricated message ID. sendText is the shared alias. No getMe, getUpdates, channel-file, or personal-account method is exposed.
 
-## Errors and transport
+## Errors and HTTP behavior
 
-`SdkException` has `kind`, public operation/connection/correlation context, optional providerCode and retryAfter. Kinds include transport, timeout, provider, authorization, permission, validation, rate_limit, protocol_mismatch and delivery_unknown. `AmbiguousDeliveryException` is the distinct unknown-write subclass. Local invalid arguments fail before HTTP. Missing/unknown fields are handled independently: unknown fields survive, missing required identity/receipt/cursor fails.
+SdkException exposes kind (ErrorKind), public operation/connection/correlation context, and optional providerCode and retryAfter. Kinds: transport, timeout, provider, authorization, permission, validation, rate_limit, protocol_mismatch, delivery_unknown. Invalid local arguments throw InvalidArgumentException; absent capabilities throw UnsupportedCapabilityException. A read network error can be transport/timeout; malformed read responses are protocol_mismatch.
 
-No automatic retries run, including for rate limits. Do not infer a successful API operation merely from HTTP 200. Malformed write responses and network/write 5xx responses can be ambiguous. The default total timeout bounds buffered PSR-18 requests; Guzzle read_timeout behavior depends on its handler. Inject a PSR-18 client with the required timeout policy for special transports. Upload timeout is not exposed before an upload API exists. Responses have a 4 MiB local safety cap, configurable through HttpTransport; this is an SDK resource policy, not a provider limit.
+Writes can raise AmbiguousDeliveryException (delivery_unknown) after a network failure, 5xx/redirect response, or malformed successful response, because the provider may have accepted the request. No automatic retries run, including for rate limits. Reconcile before retrying. The default Guzzle transport verifies TLS, rejects redirects, and uses Timeouts(connect=5, read=30, total=35 seconds). HTTP response bodies have a default 4 MiB local cap. This is an SDK resource policy, not a provider limit. A custom PSR-18 client must set its own equivalent security/timeout behavior. Raw models and fake requests can contain secrets or personal data; apply your own access and retention policy.

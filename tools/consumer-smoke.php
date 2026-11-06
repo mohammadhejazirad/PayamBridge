@@ -32,11 +32,11 @@ if ($target === 'php') {
     $composer = json_decode(file_get_contents($directory.'/composer.json'), true, flags: JSON_THROW_ON_ERROR);
     $composer['require-dev'] = new stdClass;
 }
-$composer['require']['payambridge/sdk'] = 'dev-main';
-$composer['repositories'] = [['type' => 'path', 'url' => $repository, 'options' => ['symlink' => false, 'versions' => ['payambridge/sdk' => 'dev-main']]]];
+$composer['require']['payambridge/sdk'] = '^0.1';
+$composer['repositories'] = [['type' => 'path', 'url' => $repository, 'options' => ['symlink' => false, 'versions' => ['payambridge/sdk' => '0.1.0']]]];
 if ($target !== 'php') {
-    $composer['require']['payambridge/laravel'] = 'dev-main';
-    $composer['repositories'][] = ['type' => 'path', 'url' => $repository.'/packages/laravel', 'options' => ['symlink' => false, 'versions' => ['payambridge/laravel' => 'dev-main']]];
+    $composer['require']['payambridge/laravel'] = '^0.1';
+    $composer['repositories'][] = ['type' => 'path', 'url' => $repository.'/packages/laravel', 'options' => ['symlink' => false, 'versions' => ['payambridge/laravel' => '0.1.0']]];
 }
 $composer['config']['allow-plugins'] = false;
 file_put_contents($directory.'/composer.json', json_encode($composer, JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
@@ -75,9 +75,32 @@ PHP;
 file_put_contents($directory.'/smoke.php', $smoke);
 $environment = ['PAYAMBRIDGE_BALE_TOKEN' => 'test-token'];
 if ($target !== 'php') {
-    foreach ([['package:discover', '--quiet'], ['config:cache', '--quiet'], ['route:cache', '--quiet'], ['payam:capabilities', 'bale']] as $arguments) {
+    // A real Laravel application, with a database queue and a separate worker
+    // process. This provider replaces outbound HTTP, never the notification bus.
+    mkdir($directory.'/app/Notifications', 0700, true);
+    copy(__DIR__.'/consumer/SmokeNotification.php', $directory.'/app/Notifications/SmokeNotification.php');
+    copy(__DIR__.'/consumer/SmokeProvider.php', $directory.'/app/Providers/SmokeProvider.php');
+    $providers = require $directory.'/bootstrap/providers.php';
+    $providers[] = 'App\\Providers\\SmokeProvider';
+    file_put_contents($directory.'/bootstrap/providers.php', '<?php return '.var_export($providers, true).';'.PHP_EOL);
+    copy(__DIR__.'/consumer/laravel.php', $directory.'/laravel-smoke.php');
+    touch($directory.'/database/smoke.sqlite');
+    $environment += [
+        'APP_ENV' => 'testing', 'APP_KEY' => 'base64:'.base64_encode(random_bytes(32)),
+        'DB_CONNECTION' => 'sqlite', 'DB_DATABASE' => $directory.'/database/smoke.sqlite',
+        'QUEUE_CONNECTION' => 'database', 'CACHE_STORE' => 'array', 'SESSION_DRIVER' => 'array',
+    ];
+    foreach ([['package:discover', '--quiet'], ['vendor:publish', '--tag=payambridge-config', '--quiet'], ['config:cache', '--quiet'], ['route:cache', '--quiet'], ['migrate', '--force', '--quiet'], ['payam:capabilities', 'bale']] as $arguments) {
         run([PHP_BINARY, 'artisan', ...$arguments, '--no-ansi'], $directory, $environment);
     }
 }
 run([PHP_BINARY, 'smoke.php'], $directory, $environment);
+if ($target !== 'php') {
+    run([PHP_BINARY, 'laravel-smoke.php', 'prepare'], $directory, $environment);
+    // Change the credential after enqueue: the worker must resolve its own
+    // environment, rather than a token serialized inside the queued job.
+    $workerEnvironment = array_merge($environment, ['PAYAMBRIDGE_BALE_TOKEN' => 'worker-only-token']);
+    run([PHP_BINARY, 'artisan', 'queue:work', '--once', '--tries=1', '--no-ansi'], $directory, $workerEnvironment);
+    run([PHP_BINARY, 'laravel-smoke.php', 'verify'], $directory, $workerEnvironment);
+}
 fwrite(STDOUT, 'Passed consumer target '.$target.' in '.$directory.PHP_EOL);

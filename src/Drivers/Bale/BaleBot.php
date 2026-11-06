@@ -42,7 +42,8 @@ final class BaleBot extends NativeClient implements GetsIdentity, ReceivesUpdate
 
     protected function unwrap(array $body, OperationContext $context): mixed
     {
-        if (($body['ok'] ?? null) === false) {
+        $ok = $body['ok'] ?? null;
+        if ($ok === false) {
             $code = $body['error_code'] ?? null;
             $kind = match ($code) {
                 401 => ErrorKind::Authorization,
@@ -54,7 +55,7 @@ final class BaleBot extends NativeClient implements GetsIdentity, ReceivesUpdate
             $retry = $body['parameters']['retry_after'] ?? null;
             throw new SdkException($kind, $context, is_int($code) ? $code : null, is_int($retry) && $retry >= 0 ? $retry : null);
         }
-        if (($body['ok'] ?? null) !== true || ! array_key_exists('result', $body)) {
+        if ($ok !== true || ! array_key_exists('result', $body)) {
             throw new SdkException(ErrorKind::Protocol, $context);
         }
 

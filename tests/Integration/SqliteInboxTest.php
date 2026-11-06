@@ -73,6 +73,16 @@ final class SqliteInboxTest extends TestCase
         self::assertCount(0, $restarted->events($this->connection('b')));
     }
 
+    public function test_batch_without_next_cursor_keeps_previous_checkpoint(): void
+    {
+        $store = $this->store();
+        $lease = $store->acquire($this->connection(), 60);
+        $store->checkpoint($lease, new UpdateBatch([$this->event('1')], '2'));
+        self::assertSame(1, $store->checkpoint($lease, new UpdateBatch([$this->event('2')], null)));
+        self::assertSame('2', $store->cursor($lease));
+        self::assertSame(['1', '2'], array_column($store->events($this->connection()), 'event_id'));
+    }
+
     public function test_two_independent_connections_cannot_hold_the_same_live_lease(): void
     {
         $first = $this->store();

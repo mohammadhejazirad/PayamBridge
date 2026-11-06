@@ -24,7 +24,11 @@
         "ext-pdo_sqlite": "Required by the optional durable SQLite polling inbox.",
         "payambridge/laravel": "Laravel service provider, named connections and notification channel."
     },
-    "autoload": {"psr-4": {"PayamBridge\\": "src/"}},
+    "autoload": {
+        "psr-4": {
+            "PayamBridge\\": "src/"
+        }
+    },
     "autoload-dev": {
         "psr-4": {
             "PayamBridge\\Tests\\": "tests/",
@@ -37,8 +41,74 @@
         "lint": "pint --test",
         "format": "pint",
         "inventory": "@php tools/inventory.php",
-        "check": ["@composer validate --strict", "@lint", "@analyse", "@test", "@inventory"]
+        "check": [
+            "@composer validate --strict",
+            "@lint",
+            "@analyse",
+            "@test",
+            "@inventory",
+            "@test:archive"
+        ],
+        "test:repeat": [
+            "@test",
+            "@test",
+            "@test"
+        ],
+        "test:consumer": [
+            "@php tools/consumer-smoke.php php",
+            "@php tools/consumer-smoke.php 12",
+            "@php tools/consumer-smoke.php 13"
+        ],
+        "test:archive": "@php tools/archive-check.php"
     },
-    "config": {"sort-packages": true, "allow-plugins": false},
-    "archive": {"exclude": ["/.docs", "/.github", "/.vscode", "/tests", "/tools", "/packages", "/phpunit.xml", "/phpstan.neon", "/pint.json"]}
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": false,
+        "platform": {
+            "php": "8.3.0"
+        }
+    },
+    "archive": {
+        "exclude": [
+            "/.git",
+            "/.agents",
+            "/.aws",
+            "/.codex",
+            "/.docs",
+            "/.github",
+            "/.gitignore",
+            "/.gitattributes",
+            "/.vscode",
+            "/vendor",
+            "/.phpunit.cache",
+            "/.phpstan-cache",
+            "/coverage",
+            "/.env",
+            "/.env.*",
+            "/composer.lock",
+            "/tests",
+            "/tools",
+            "/phpunit.xml",
+            "/phpstan.neon",
+            "/pint.json",
+            "/packages",
+            "/CONTRIBUTING.md"
+        ]
+    },
+    "keywords": [
+        "php",
+        "laravel",
+        "sdk",
+        "bale",
+        "rubika",
+        "eitaa",
+        "messenger",
+        "notifications"
+    ],
+    "homepage": "https://github.com/mohammadhejazirad/PayamBridge",
+    "support": {
+        "issues": "https://github.com/mohammadhejazirad/PayamBridge/issues",
+        "source": "https://github.com/mohammadhejazirad/PayamBridge",
+        "docs": "https://github.com/mohammadhejazirad/PayamBridge/blob/main/README.en.md"
+    }
 }

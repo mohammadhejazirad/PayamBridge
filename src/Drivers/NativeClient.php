@@ -20,6 +20,7 @@ use PayamBridge\Security\Credential;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 use SensitiveParameter;
+use Throwable;
 
 abstract class NativeClient implements Connection
 {
@@ -72,10 +73,16 @@ abstract class NativeClient implements Connection
     final protected function execute(string $method, #[SensitiveParameter] array $payload, bool $writes, callable $decode): mixed
     {
         $context = new OperationContext($this->connection, $method, $writes);
-        $request = $this->requests->createRequest('POST', $this->endpoint($method))
-            ->withHeader('Content-Type', 'application/json')
-            ->withHeader('Accept', 'application/json')
-            ->withBody($this->streams->createStream(json_encode((object) $payload, JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE)));
+        try {
+            $request = $this->requests->createRequest('POST', $this->endpoint($method))
+                ->withHeader('Content-Type', 'application/json')
+                ->withHeader('Accept', 'application/json')
+                ->withBody($this->streams->createStream(json_encode((object) $payload, JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE)));
+        } catch (Throwable) {
+            // Request construction is local: nothing has reached the provider.
+            // Factory exceptions may include the credential-bearing URI or body.
+            throw new SdkException(ErrorKind::Validation, $context);
+        }
         $response = $this->transport->send($request, $context);
 
         try {

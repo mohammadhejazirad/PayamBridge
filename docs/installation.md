@@ -1,28 +1,69 @@
-# Local installation before publication
+# Installation
 
-Neither package is on a public Composer registry yet. The package names are development names.
+PayamBridge has two Composer packages: the framework-independent **payambridge/sdk** and the optional **payambridge/laravel** bridge. Both require PHP 8.3, 8.4, or 8.5. The bridge requires Laravel Illuminate 12 or 13. The SDK requires ext-json and ext-mbstring; the SQLite inbox additionally requires ext-pdo_sqlite. No Redis, Node, or database is required for sending.
 
-For a standalone consumer, add this repository as a path repository (replace the absolute path):
+## First public release
 
-```json
+Once version 0.1.0 of **both packages** is published and indexed by Packagist, use:
+
+~~~sh
+composer require payambridge/sdk:^0.1
+~~~
+
+For Laravel:
+
+~~~sh
+composer require payambridge/laravel:^0.1
+php artisan vendor:publish --tag=payambridge-config
+~~~
+
+The Laravel package requires the SDK. These registry commands are conditional on publication; check [release status](IMPLEMENTATION_STATUS.md) before relying on them. Composer resolves against your application's own lock and PHP version. Commit the application's composer.lock.
+
+## Install from this checkout before publication
+
+Add path repositories to the consuming application's composer.json, replacing the absolute path. Assign the first release version explicitly to each local package so the bridge's ^0.1 SDK dependency resolves.
+
+~~~json
 {
   "repositories": [
-    {"type":"path","url":"/absolute/path/PayamBridge","options":{"versions":{"payambridge/sdk":"dev-main"}}}
+    {
+      "type": "path",
+      "url": "/absolute/path/PayamBridge",
+      "options": {
+        "versions": {"payambridge/sdk": "0.1.0"},
+        "symlink": false
+      }
+    },
+    {
+      "type": "path",
+      "url": "/absolute/path/PayamBridge/packages/laravel",
+      "options": {
+        "versions": {"payambridge/laravel": "0.1.0"},
+        "symlink": false
+      }
+    }
   ],
-  "require": {"payambridge/sdk":"dev-main"}
+  "require": {
+    "payambridge/laravel": "^0.1"
+  }
 }
-```
+~~~
 
-Run `composer update`. For Laravel, also add:
+Merge these entries into the existing application manifest. Run `composer require payambridge/laravel:^0.1 --with-all-dependencies`. For standalone PHP, keep only the SDK repository and run `composer require payambridge/sdk:^0.1`. A copied path installation (symlink false) exposes missing files and development-autoload mistakes. The root composer.lock is for development verification; a library consumer resolves its own lock. The bridge's package directory is not part of the SDK distribution archive, so install the bridge separately.
 
-```json
-{"type":"path","url":"/absolute/path/PayamBridge/packages/laravel","options":{"versions":{"payambridge/laravel":"dev-main"}}}
-```
+## Credentials
 
-and require `"payambridge/laravel":"dev-main"`. In CI consumer checks, `"symlink": false` forces a copied install, so missing files and accidental development autoload dependencies are visible. Applications normally commit their own Composer lock file.
+Set BALE_BOT_TOKEN for the standalone Bale example or the configured PAYAMBRIDGE_BALE_TOKEN, PAYAMBRIDGE_RUBIKA_TOKEN, and PAYAMBRIDGE_EITAA_APP_TOKEN references for Laravel. Never put real tokens into composer.json, committed config, code, job payloads, or screenshots. The Laravel config stores environment variable names. With config:cache, set secrets in the real PHP-FPM/worker environment or replace CredentialResolver. Obtain tokens from the provider and send only to a destination you are authorized to use.
 
-The SDK's root `composer.lock` locks development verification. It is not shipped in the source archive and does not constrain a library consumer's resolution. `packages/laravel` is a separate package and must be installed separately; no framework integration loads when only the SDK is required.
+The default HTTP transport verifies TLS, disables redirects, and applies connect/read/total timeouts. It does not follow a user-supplied URL. A custom PSR-18 client must enforce equivalent policy.
 
-The development matrix is PHP 8.3–8.5 and Laravel 12/13. The lock checked into this initial checkout was resolved on PHP 8.5. Use `composer update` for other matrix cells; CI resolves dependencies independently per target. Dependencies installed for development include Testbench/Laravel, but a normal `payambridge/sdk` installation has no framework dependency.
+## Verify a checkout
 
-Use `composer check` in this repository. `composer analyse` runs PHPStan sequentially (`--debug`) so it also works in environments that prohibit even local TCP sockets. No secret, login, migration, npm build or daemon is executed by either package's installation.
+~~~sh
+composer install
+composer check
+~~~
+
+composer check runs strict Composer validation, Pint, PHPStan, PHPUnit, and operation inventory. Testbench and Laravel in root require-dev are development tools; they are not runtime dependencies of an SDK-only consumer. See [implementation status](IMPLEMENTATION_STATUS.md) for actual tested environments and [release process](releasing.md) for packaging.
+
+Development checks additionally require `ext-pdo_sqlite` and `ext-zip`. `composer check` also inspects Composer distribution archives. Use `composer test:repeat` for three consecutive suite runs and `composer test:consumer` for clean standalone/Laravel application installations.

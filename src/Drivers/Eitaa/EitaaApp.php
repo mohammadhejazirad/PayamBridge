@@ -35,10 +35,11 @@ final class EitaaApp extends NativeClient implements SendsText
 
     protected function unwrap(array $body, OperationContext $context): mixed
     {
-        if (($body['ok'] ?? null) === false) {
+        $ok = $body['ok'] ?? null;
+        if ($ok === false) {
             throw new SdkException(ErrorKind::Provider, $context);
         }
-        if (($body['ok'] ?? null) !== true || ($body['result'] ?? null) !== 'success') {
+        if ($ok !== true || ($body['result'] ?? null) !== 'success') {
             throw new SdkException(ErrorKind::Protocol, $context);
         }
 

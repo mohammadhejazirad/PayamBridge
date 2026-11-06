@@ -73,9 +73,17 @@ final readonly class HttpTransport
             throw new SdkException($timeout ? ErrorKind::Timeout : ErrorKind::Transport, $context);
         }
 
-        $status = $response->getStatusCode();
+        try {
+            $status = $response->getStatusCode();
+        } catch (Throwable) {
+            throw $context->writes ? new AmbiguousDeliveryException($context) : new SdkException(ErrorKind::Protocol, $context);
+        }
         if ($status < 200 || $status >= 300) {
-            $response->getBody()->close();
+            try {
+                $response->getBody()->close();
+            } catch (Throwable) {
+                // Cleanup cannot replace the HTTP status and delivery outcome.
+            }
             if ($context->writes && ($status >= 500 || ($status >= 300 && $status < 400))) {
                 throw new AmbiguousDeliveryException($context);
             }
@@ -115,7 +123,13 @@ final readonly class HttpTransport
         } catch (Throwable) {
             throw $context->writes ? new AmbiguousDeliveryException($context) : new SdkException(ErrorKind::Protocol, $context);
         } finally {
-            $response->getBody()->close();
+            if (isset($stream)) {
+                try {
+                    $stream->close();
+                } catch (Throwable) {
+                    // A complete, decoded response remains authoritative.
+                }
+            }
         }
 
         return new JsonResponse($decoded, $status);
@@ -124,6 +138,7 @@ final readonly class HttpTransport
     private function preserveJsonTypes(mixed $value): mixed
     {
         if ($value instanceof stdClass) {
+            /** @var array<int|string, mixed> $fields Numeric JSON property names can become integer array keys. */
             $fields = get_object_vars($value);
             // Associative decoding alone collapses {} and [] and can accept an
             // invalid empty-object update list as an acknowledged empty batch.
