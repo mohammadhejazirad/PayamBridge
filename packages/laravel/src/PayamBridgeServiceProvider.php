@@ -6,10 +6,13 @@ namespace PayamBridge\Laravel;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
+use InvalidArgumentException;
 use PayamBridge\ConnectionFactory;
 use PayamBridge\Http\HttpTransport;
 use PayamBridge\Http\Timeouts;
 use PayamBridge\Laravel\Commands\CapabilitiesCommand;
+use PayamBridge\Runtime\InboxStore;
+use PayamBridge\Runtime\Poller;
 
 final class PayamBridgeServiceProvider extends ServiceProvider
 {
@@ -28,6 +31,19 @@ final class PayamBridgeServiceProvider extends ServiceProvider
         }
         $this->app->scoped(ConnectionFactory::class);
         $this->app->scoped(ConnectionManager::class);
+        if (! $this->app->bound(InboxStore::class)) {
+            $this->app->scoped(InboxStore::class, static fn (Application $app): InboxStore => InboxStoreFactory::make($app));
+        }
+        if (! $this->app->bound(Poller::class)) {
+            $this->app->scoped(Poller::class, static function (Application $app): Poller {
+                $lease = $app->make('config')->get('payambridge.inbox.lease_seconds');
+                if ((! is_float($lease) && ! is_int($lease)) || ! is_finite((float) $lease) || $lease <= 0) {
+                    throw new InvalidArgumentException('payambridge.inbox.lease_seconds must be finite and positive.');
+                }
+
+                return new Poller($app->make(InboxStore::class), (float) $lease);
+            });
+        }
     }
 
     public function boot(): void

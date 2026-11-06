@@ -1,6 +1,8 @@
 # Installation
 
-PayamBridge has two Composer packages: the framework-independent **payambridge/sdk** and the optional **payambridge/laravel** bridge. Both require PHP 8.3, 8.4, or 8.5. The bridge requires Laravel Illuminate 12 or 13. The SDK requires ext-json and ext-mbstring; the SQLite inbox additionally requires ext-pdo_sqlite. No Redis, Node, or database is required for sending.
+PayamBridge has two Composer packages: the framework-independent **payambridge/sdk** and the optional **payambridge/laravel** bridge. Both require PHP 8.3, 8.4, or 8.5. The bridge requires Laravel Illuminate 12 or 13. The SDK requires ext-json and ext-mbstring; the optional SQLite inbox additionally requires ext-pdo_sqlite, while the TXT file inbox does not. No Redis, Node, or database is required for sending.
+
+For durable Bale polling, choose SQLite or a TXT file. Standalone use of `FileInboxStore` requires an existing parent directory and an explicit `initialize()` call. Keep its data and adjacent `.lock` file on the same trusted local filesystem outside the web root. The file store rewrites the full JSON state at each checkpoint and suits small local workloads; use SQLite for larger backlogs. Selecting a different store does not migrate existing events or the cursor. See the [inbox API](api.md#bale-bot) and [Laravel configuration](laravel.md#durable-bale-inbox).
 
 ## First public release
 

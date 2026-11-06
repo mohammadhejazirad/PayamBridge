@@ -2,6 +2,12 @@
 
 ## Unreleased — initial development slice
 
+Optional inbox storage:
+
+- Add `FileInboxStore` for UTF-8 JSON stored in a TXT file, with process-safe locking, atomic checkpoints, replay deduplication and persistent lease fencing, without PDO/SQLite.
+- Add lazy Laravel `InboxStore` and `Poller` bindings with `PAYAMBRIDGE_INBOX_DRIVER=file` or `sqlite`, configurable private paths and lease duration. SQLite remains the default; switching backends does not migrate data.
+- Exercise both storage choices in real Laravel 12/13 consumer applications, including cached config and process restart.
+
 Release preparation and hardening:
 
 - Expand equivalent Persian and English user guides, supported PHP/Laravel versions, installation, notifications, polling, deployment and troubleshooting.

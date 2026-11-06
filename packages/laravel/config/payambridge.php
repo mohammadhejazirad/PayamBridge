@@ -14,4 +14,13 @@ return [
     ],
 
     'timeouts' => ['connect' => 5.0, 'read' => 30.0, 'total' => 35.0],
+
+    'inbox' => [
+        'driver' => env('PAYAMBRIDGE_INBOX_DRIVER', 'sqlite'),
+        'paths' => [
+            'sqlite' => storage_path('app/private/payambridge/inbox.sqlite'),
+            'file' => storage_path('app/private/payambridge/inbox.txt'),
+        ],
+        'lease_seconds' => 60.0,
+    ],
 ];

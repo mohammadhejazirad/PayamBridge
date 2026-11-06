@@ -23,7 +23,7 @@ A capability-based SDK for connecting PHP applications to Iranian messengers, wi
 
 | Connection | Send text | Receive updates | Bot identity | Durable inbox |
 | --- | --- | --- | --- | --- |
-| Bale Bot | Yes | Yes | Yes | SQLite |
+| Bale Bot | Yes | Yes | Yes | SQLite or TXT file |
 | Rubika Bot | Yes | Yes, string cursor | Yes | No |
 | Eitaa App | Yes, to an authorized user | No | No | No |
 
@@ -31,7 +31,7 @@ This table lists **implemented operations**. Eitaa App differs from EitaaYar cha
 
 ## Requirements and installation
 
-Both packages require **PHP 8.3, 8.4, or 8.5**, `ext-json`, `ext-mbstring`, and **Composer 2**. The bridge supports **Laravel 12 and 13**. `ext-pdo_sqlite` is needed only for the optional SQLite inbox. Sending needs no database.
+Both packages require **PHP 8.3, 8.4, or 8.5**, `ext-json`, `ext-mbstring`, and **Composer 2**. The bridge supports **Laravel 12 and 13**. `ext-pdo_sqlite` is needed only for the optional SQLite inbox; the TXT file inbox does not need it. Sending needs no database.
 
 After version 0.1.0 of **both** packages is published and indexed by Packagist:
 
@@ -123,19 +123,26 @@ Bale's next cursor is the greatest update ID plus one. Its offset acknowledges e
 
 ## Durable Bale inbox
 
-To collect **Bale** updates durably:
+To collect **Bale** updates durably, choose a store:
 
 ~~~php
+use PayamBridge\Runtime\FileInboxStore;
 use PayamBridge\Runtime\Poller;
 use PayamBridge\Runtime\SqliteInboxStore;
 
+// SQLite: useful for a larger backlog; requires ext-pdo_sqlite.
 $inbox = new SqliteInboxStore(new PDO('sqlite:/private/storage/payambridge.sqlite'));
-$inbox->initialize(); // Explicit schema creation
+
+// Or a TXT file: suitable for small, local workloads; no SQLite extension.
+// To choose the file store, use this assignment instead of the SQLite one:
+// $inbox = new FileInboxStore('/private/storage/payambridge/inbox.txt');
+
+$inbox->initialize(); // Explicitly prepare the selected store.
 $count = (new Poller($inbox))->once($connection);
 $rows = $inbox->events($id, 100);
 ~~~
 
-Here connection must be Bale. Each once saves one batch and cursor under a lease in one transaction and deduplicates stable IDs. Poller throws UnsupportedCapabilityException for Rubika. The inbox has no business handler, processed acknowledgment, daemon, or outbox. Keep SQLite and raw events outside the web root and define a retention policy. An advanced Bale offset acknowledges earlier updates on the server; persist first.
+Here connection must be Bale. Each `once()` saves one batch and cursor under a lease and deduplicates stable IDs. SQLite commits them in a transaction; the file store writes UTF-8 JSON state to the `.txt` file by atomic same-directory rename while holding an exclusive lock on a stable adjacent `.lock` file. The TXT store rewrites its full state at each checkpoint. Its parent directory must already exist for standalone use. Keep the data and lock files together on the same trusted local filesystem outside the web root; do not manually edit or delete either file while workers are running. Select SQLite for a larger backlog. Changing stores does not migrate existing events or cursor automatically. Poller throws UnsupportedCapabilityException for Rubika. The inbox has no business handler, processed acknowledgment, daemon, or outbox. Define a backup and retention policy. An advanced Bale offset acknowledges earlier updates on the server; persist first.
 
 Run `once()` from a scheduler or supervised worker in your application. Lease contention raises `LeaseUnavailableException`; an expired or replaced lease raises `LeaseLostException` without committing a cursor. The returned count is newly inserted events; `events()` returns raw JSON payload rows, not a business processing queue. Track processed rows, backups, and retention in the host application. Avoid simultaneous webhook and polling consumption without a deliberate transition plan.
 
@@ -149,6 +156,8 @@ php artisan payam:capabilities bale
 ~~~
 
 The capabilities command prints local capabilities without a network request, but constructing a connection requires its configured credential. Config stores environment variable names such as PAYAMBRIDGE_BALE_TOKEN, not secrets. With config:cache, set secrets in the actual PHP-FPM/worker environment or bind CredentialResolver to a secret store.
+
+For durable Bale polling, `payambridge.inbox.driver` defaults to `sqlite`. Set `PAYAMBRIDGE_INBOX_DRIVER=file` before caching config, or choose `file` in the published config, to use the TXT backend without `ext-pdo_sqlite`. The default paths are `storage_path('app/private/payambridge/inbox.sqlite')` and `storage_path('app/private/payambridge/inbox.txt')`; `inbox.lease_seconds` defaults to `60.0`. The bridge lazily initializes the selected store and creates its private parent directory on resolution. Inject `PayamBridge\Runtime\InboxStore` or `PayamBridge\Runtime\Poller`; schedule and supervise your own polling worker. See [Laravel inbox setup](docs/laravel.md#durable-bale-inbox).
 
 Published `config/payambridge.php` defines default connection `bale`, plus `bale` Bot, `rubika` Bot, and `eitaa-app` App. Each entry has `provider`, `surface`, `tenant`, and `token_env`. The other default secret references are `PAYAMBRIDGE_RUBIKA_TOKEN` and `PAYAMBRIDGE_EITAA_APP_TOKEN`. The default connect/read/total timeouts are 5/30/35 seconds. A tenant-specific entry looks like:
 
@@ -277,7 +286,7 @@ Tests can inject `new HttpTransport(new PayamBridge\Testing\FakeHttpClient([...]
 - **Timeout or rate limit:** inspect `kind` and `retryAfter` when available; define application-specific retry policy. For Bale native long polling, set read/total timeouts above the provider timeout.
 - **Queue duplicate risk:** review `delivery_unknown` before retrying. There is no persistent outbox or idempotency-key abstraction in this release.
 
-The default transport caps response bodies at 4 MiB. Custom PSR-18 clients need an equivalent TLS, redirect, and timeout policy. Store SQLite on private persistent storage and define backup and retention.
+The default transport caps response bodies at 4 MiB. Custom PSR-18 clients need an equivalent TLS, redirect, and timeout policy. Store inbox data and lock files on private persistent storage and define backup and retention.
 
 ## Contributing and releases
 

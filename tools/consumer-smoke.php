@@ -84,6 +84,7 @@ if ($target !== 'php') {
     $providers[] = 'App\\Providers\\SmokeProvider';
     file_put_contents($directory.'/bootstrap/providers.php', '<?php return '.var_export($providers, true).';'.PHP_EOL);
     copy(__DIR__.'/consumer/laravel.php', $directory.'/laravel-smoke.php');
+    copy(__DIR__.'/consumer/inbox.php', $directory.'/inbox-smoke.php');
     touch($directory.'/database/smoke.sqlite');
     $environment += [
         'APP_ENV' => 'testing', 'APP_KEY' => 'base64:'.base64_encode(random_bytes(32)),
@@ -102,5 +103,11 @@ if ($target !== 'php') {
     $workerEnvironment = array_merge($environment, ['PAYAMBRIDGE_BALE_TOKEN' => 'worker-only-token']);
     run([PHP_BINARY, 'artisan', 'queue:work', '--once', '--tries=1', '--no-ansi'], $directory, $workerEnvironment);
     run([PHP_BINARY, 'laravel-smoke.php', 'verify'], $directory, $workerEnvironment);
+    foreach (['sqlite', 'file'] as $inboxDriver) {
+        $inboxEnvironment = array_merge($environment, ['PAYAMBRIDGE_INBOX_DRIVER' => $inboxDriver]);
+        run([PHP_BINARY, 'artisan', 'config:cache', '--quiet', '--no-ansi'], $directory, $inboxEnvironment);
+        run([PHP_BINARY, 'inbox-smoke.php', $inboxDriver, 'first'], $directory, $inboxEnvironment);
+        run([PHP_BINARY, 'inbox-smoke.php', $inboxDriver, 'replay'], $directory, $inboxEnvironment);
+    }
 }
 fwrite(STDOUT, 'Passed consumer target '.$target.' in '.$directory.PHP_EOL);

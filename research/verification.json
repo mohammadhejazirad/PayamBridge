@@ -420,5 +420,7 @@
     "branch coverage, mutation testing and 24-hour soak",
     "future product scope recorded in research/open-questions.md"
   ],
-  "temporary_logs_note": "Absolute temporary application/log paths identify this local run; they are not files required by consumers and may be cleaned later."
+  "temporary_logs_note": "Absolute temporary application/log paths identify this local run; they are not files required by consumers and may be cleaned later.",
+  "historical": true,
+  "superseded_by": "verification-file-inbox.json"
 }

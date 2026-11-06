@@ -23,7 +23,7 @@ SDK مبتنی بر قابلیت برای اتصال برنامه‌های PHP �
 
 | اتصال | ارسال متن | دریافت بروزرسانی | هویت بات | inbox پایدار |
 | --- | --- | --- | --- | --- |
-| بله Bot | بله | بله | بله | SQLite |
+| بله Bot | بله | بله | بله | SQLite یا فایل TXT |
 | روبیکا Bot | بله | بله، cursor رشته‌ای | بله | خیر |
 | ایتا App | بله، به کاربر مجاز | خیر | خیر | خیر |
 
@@ -31,7 +31,7 @@ SDK مبتنی بر قابلیت برای اتصال برنامه‌های PHP �
 
 ## پیش‌نیاز و نصب
 
-هر دو پکیج به **PHP 8.3، 8.4 یا 8.5**، افزونه‌های `ext-json` و `ext-mbstring` و **Composer 2** نیاز دارند. bridge از **Laravel 12 و 13** پشتیبانی می‌کند. `ext-pdo_sqlite` فقط برای صندوق ورودی اختیاری SQLite لازم است. ارسال پیام پایگاه داده نمی‌خواهد.
+هر دو پکیج به **PHP 8.3، 8.4 یا 8.5**، افزونه‌های `ext-json` و `ext-mbstring` و **Composer 2** نیاز دارند. bridge از **Laravel 12 و 13** پشتیبانی می‌کند. `ext-pdo_sqlite` فقط برای صندوق ورودی اختیاری SQLite لازم است؛ صندوق ورودی فایل TXT به آن نیاز ندارد. ارسال پیام پایگاه داده نمی‌خواهد.
 
 پس از انتشار نسخه 0.1.0 **هر دو پکیج** و ثبت‌شدن در Packagist:
 
@@ -123,19 +123,26 @@ cursor بعدی بله برابر بیشترین update ID به‌علاوه ی�
 
 ## صندوق ورودی پایدار بله
 
-برای جمع‌آوری پایدار **بله**:
+برای جمع‌آوری پایدار **بله**، محل ذخیره را انتخاب کنید:
 
 ~~~php
+use PayamBridge\Runtime\FileInboxStore;
 use PayamBridge\Runtime\Poller;
 use PayamBridge\Runtime\SqliteInboxStore;
 
+// SQLite: مناسب برای حجم بیشتر؛ نیازمند ext-pdo_sqlite.
 $inbox = new SqliteInboxStore(new PDO('sqlite:/private/storage/payambridge.sqlite'));
-$inbox->initialize(); // ایجاد صریح schema
+
+// یا فایل TXT: مناسب برای کار سبک و محلی؛ بدون افزونه SQLite.
+// برای انتخاب فایل، این مقداردهی را جایگزین مقداردهی SQLite کنید:
+// $inbox = new FileInboxStore('/private/storage/payambridge/inbox.txt');
+
+$inbox->initialize(); // آماده‌سازی صریح محل ذخیره انتخاب‌شده
 $count = (new Poller($inbox))->once($connection);
 $rows = $inbox->events($id, 100);
 ~~~
 
-در این مثال connection باید بله باشد. هر once یک batch و cursor را تحت lease و در یک تراکنش ذخیره می‌کند و شناسه‌های تکراری را حذف می‌کند. Poller برای روبیکا UnsupportedCapabilityException می‌دهد. inbox هیچ handler، ack پردازش تجاری، daemon یا outbox ندارد. SQLite و raw eventها را بیرون web root نگه دارید و retention تعریف کنید. offset پیشرفته بله دریافت‌های قبلی را در سرور تأیید می‌کند؛ ابتدا ذخیره پایدار انجام دهید.
+در این مثال connection باید بله باشد. هر `once()` یک batch و cursor را تحت lease ذخیره می‌کند و شناسه‌های تکراری را حذف می‌کند. SQLite آن‌ها را در تراکنش ثبت می‌کند؛ ذخیره‌ساز فایل، وضعیت JSON با کدگذاری UTF-8 را با تغییر نام اتمی در همان پوشه داخل فایل `.txt` می‌نویسد و هم‌زمان قفل انحصاری فایل پایدار `.lock` کنار آن را نگه می‌دارد. در هر checkpoint کل وضعیت فایل دوباره نوشته می‌شود. در استفاده مستقل، پوشه والد باید از قبل موجود باشد. فایل داده و قفل را کنار هم در یک فایل‌سیستم محلی قابل‌اعتماد و بیرون web root نگه دارید؛ هنگام اجرای worker آن‌ها را دستی ویرایش یا حذف نکنید. برای حجم بیشتر SQLite را انتخاب کنید. تغییر ذخیره‌ساز، رویدادها و cursor قبلی را خودکار منتقل نمی‌کند. Poller برای روبیکا UnsupportedCapabilityException می‌دهد. inbox هیچ handler، ack پردازش تجاری، daemon یا outbox ندارد. پشتیبان‌گیری و دوره نگهداری تعریف کنید. offset پیشرفته بله دریافت‌های قبلی را در سرور تأیید می‌کند؛ ابتدا ذخیره پایدار انجام دهید.
 
 `once()` را با scheduler یا worker تحت نظارت برنامه اجرا کنید. رقابت بر سر lease خطای `LeaseUnavailableException` و انقضا یا جایگزینی آن `LeaseLostException` می‌دهد و cursor را ثبت نمی‌کند. شمارش بازگشتی تعداد رویدادهای تازه‌ثبت‌شده است؛ `events()` سطرهای JSON خام می‌دهد، نه صف پردازش تجاری. پیگیری سطرهای پردازش‌شده، پشتیبان‌گیری و نگهداری داده با برنامه میزبان است. دریافت هم‌زمان با webhook و polling به برنامه گذار مشخص نیاز دارد.
 
@@ -149,6 +156,8 @@ php artisan payam:capabilities bale
 ~~~
 
 فرمان capabilities فقط قابلیت محلی را چاپ می‌کند و درخواست شبکه ندارد، اما برای ساخت اتصال به credential پیکربندی‌شده نیاز دارد. config نام متغیر محیطی مثل PAYAMBRIDGE_BALE_TOKEN را نگه می‌دارد، نه secret را. با config:cache، secret را در محیط واقعی PHP-FPM/worker بگذارید یا CredentialResolver را برای secret store خود bind کنید.
+
+برای polling پایدار بله، مقدار پیش‌فرض `payambridge.inbox.driver` برابر `sqlite` است. برای استفاده از فایل TXT بدون `ext-pdo_sqlite`، پیش از cache کردن config مقدار `PAYAMBRIDGE_INBOX_DRIVER=file` را تنظیم کنید یا در config منتشرشده `file` را انتخاب کنید. مسیرهای پیش‌فرض `storage_path('app/private/payambridge/inbox.sqlite')` و `storage_path('app/private/payambridge/inbox.txt')` هستند؛ مقدار پیش‌فرض `inbox.lease_seconds` برابر `60.0` است. bridge هنگام resolve شدن، ذخیره‌ساز انتخاب‌شده را آماده می‌کند و در صورت نیاز پوشه والد خصوصی را می‌سازد. `PayamBridge\Runtime\InboxStore` یا `PayamBridge\Runtime\Poller` را تزریق کنید؛ اجرای دوره‌ای worker بر عهده برنامه شماست. جزئیات در [تنظیم inbox لاراول](docs/laravel.md#durable-bale-inbox) آمده است.
 
 فایل منتشرشده `config/payambridge.php` اتصال پیش‌فرض `bale` و اتصال‌های `bale` Bot، `rubika` Bot و `eitaa-app` App را تعریف می‌کند. هر مورد `provider`، `surface`، `tenant` و `token_env` دارد. نام متغیرهای پیش‌فرض دیگر `PAYAMBRIDGE_RUBIKA_TOKEN` و `PAYAMBRIDGE_EITAA_APP_TOKEN` هستند. timeout اتصال/خواندن/کل به‌ترتیب ۵/۳۰/۳۵ ثانیه است. نمونه tenant مستقل:
 
@@ -277,7 +286,7 @@ $transport = HttpTransport::createDefault(new Timeouts(connect: 5, read: 60, tot
 - **timeout یا rate limit:** از `kind` و در صورت وجود `retryAfter` برای سیاست retry برنامه استفاده کنید. برای long polling بله timeout خواندن/کل را از timeout سرویس‌دهنده بیشتر بگذارید.
 - **احتمال پیام تکراری صف:** پیش از retry نتیجه `delivery_unknown` را بررسی کنید. این نسخه outbox پایدار یا انتزاع idempotency key ندارد.
 
-transport پیش‌فرض پاسخ را به ۴ MiB محدود می‌کند. برای PSR-18 client سفارشی سیاست مناسب TLS، redirect و timeout تعیین کنید. SQLite را در فضای خصوصی پایدار بگذارید و پشتیبان‌گیری و دوره نگهداری مشخص کنید.
+transport پیش‌فرض پاسخ را به ۴ MiB محدود می‌کند. برای PSR-18 client سفارشی سیاست مناسب TLS، redirect و timeout تعیین کنید. داده و فایل قفل inbox را در فضای خصوصی پایدار بگذارید و پشتیبان‌گیری و دوره نگهداری مشخص کنید.
 
 ## مشارکت و انتشار
 
